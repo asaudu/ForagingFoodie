@@ -8,18 +8,18 @@ const Form = (props) => {
 
 
     // We're using that initial student as our initial state                       
-    const [user, setPost] = useState(initialPost);
+    const [user, setUser] = useState(initialPost);
 
     //create functions that handle the event of the user typing into the form
     const handleUsernameChange = (event) => {
         const username = event.target.value;
-        setPost((user) => ({ ...user, username }));
+        setUser((user) => ({ ...user, username }));
 
     }
 
     const handleEmailChange = (event) => {
         const email = event.target.value;
-        setPost((user) => ({ ...user, email }));
+        setUser((user) => ({ ...user, email }));
 
     }
 
