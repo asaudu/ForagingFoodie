@@ -16,8 +16,8 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(REACT_BUILD_DIR, 'index.html'));
 });
 
-//create the get request
-app.get('/api/students', cors(), async (req, res) => {
+//users get request
+app.get('/api/users', cors(), async (req, res) => {
     
     // const STUDENTS = [
 
@@ -29,46 +29,79 @@ app.get('/api/students', cors(), async (req, res) => {
     // ];
     // res.json(STUDENTS);
     try{
-        const { rows: students } = await db.query('SELECT * FROM students');
-        res.send(students);
+        const { rows: user } = await db.query('SELECT * FROM users');
+        res.send(user);
     } catch (e){
         console.log(e);
         return res.status(400).json({e});
     }
 });
 
-//create the POST request
-app.post('/api/students', cors(), async (req, res) => {
-    const newUser = { firstname: req.body.firstname, lastname: req.body.lastname }
-    console.log([newUser.firstname, newUser.lastname]);
+//blogposts get request
+app.get('/api/blogposts', cors(), async (req, res) => {
+    
+    try{
+        const { rows: posts } = await db.query('SELECT * FROM blogposts');
+        res.send(posts);
+    } catch (e){
+        console.log(e);
+        return res.status(400).json({e});
+    }
+});
+
+//users POST request
+app.post('/api/users', cors(), async (req, res) => {
+    const newUser = { username: req.body.username, email: req.body.email }
+    console.log([newUser.username, newUser.email]);
     const result = await db.query(
-        'INSERT INTO students(firstname, lastname) VALUES($1, $2) RETURNING *',
-        [newUser.firstname, newUser.lastname]
+        'INSERT INTO users(username, email) VALUES($1, $2) RETURNING *',
+        [newUser.username, newUser.email]
     );
     console.log(result.rows[0]);
     res.json(result.rows[0]);
 });
 
-// delete request
-app.delete('/api/students/:studentId', cors(), async (req, res) =>{
-    const studentId = req.params.studentId;
+//blogposts POST request
+app.post('/api/blogposts', cors(), async (req, res) => {
+    const newPost = req.body
+    console.log([newUser.firstname, newUser.lastname]);
+    const result = await db.query(
+        'INSERT INTO blogposts(imageurl, alt, dish, restaurant, content, city, date) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+        [newPost.imageurl, newPost.alt, newPost.dish, newPost.restaurant, newPost.content, newPost.city, newPost.date]
+    );
+    console.log(result.rows[0]);
+    res.json(result.rows[0]);
+});
+
+// users delete request
+app.delete('/api/users/:userId', cors(), async (req, res) =>{
+    const userId = req.params.userId;
     //console.log(req.params);
-    await db.query('DELETE FROM students WHERE id=$1', [studentId]);
+    await db.query('DELETE FROM users WHERE id=$1', [userId]);
     res.status(200).end();
 
 });
 
-// Put request - Update request
-app.put('/api/students/:studentId', cors(), async (req, res) =>{
-    const studentId = req.params.studentId;
-    const updateStudent = { id: req.body.id, firstname: req.body.firstname, lastname: req.body.lastname }
+// blogposts delete request
+app.delete('/api/blogposts/:postId', cors(), async (req, res) =>{
+    const postId = req.params.postId;
+    //console.log(req.params);
+    await db.query('DELETE FROM blogposts WHERE id=$1', [postId]);
+    res.status(200).end();
+
+});
+
+// blogposts Put request - Update request
+app.put('/api/blogposts/:postId', cors(), async (req, res) =>{
+    const postId = req.params.postId;
+    const updatePost = req.body
     //console.log(req.params);
     // UPDATE students SET lastname = 'TestMarch' WHERE id = 1;
-    console.log(studentId);
-    console.log(updateStudent);
-    const query = `UPDATE students SET lastname=$1, firstname=$2 WHERE id = ${studentId} RETURNING *`;
+    console.log(postId);
+    console.log(updatePost);
+    const query = `UPDATE blogposts SET imageurl=$1, alt=$2, dish=$3, restaurant=$4, content=$5, city=$6, date=$7 WHERE id = ${postId} RETURNING *`;
     console.log(query);
-    const values = [updateStudent.lastname, updateStudent.firstname];
+    const values = [updatePost.imageurl, updatePost.alt, updatePost.dish, updatePost.restaurant, updatePost.content, updatePost.city, updatePost.date];
     try{
         const updated = await db.query(query, values);
         console.log(updated.rows[0]);
