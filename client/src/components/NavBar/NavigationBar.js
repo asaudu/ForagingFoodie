@@ -7,22 +7,22 @@ return (
 		<Bars />
 
 		<NavMenu>
-		<NavLink to='/' activeStyle>
+		<NavLink to='/'>
 			Home
 		</NavLink>	
-		<NavLink to='/dallas' activeStyle>
+		<NavLink to='/dallas'>
 			Dallas
 		</NavLink>
-		<NavLink to='/korea' activeStyle>
+		<NavLink to='/korea'>
 			Korea
 		</NavLink>
-		<NavLink to='/about' activeStyle>
+		<NavLink to='/about'>
 			About
 		</NavLink>
-		<NavLink to='/contactme' activeStyle>
+		<NavLink to='/contactme'>
 			Contact Me
 		</NavLink>
-		<NavLink to='/sign-up' activeStyle>
+		<NavLink to='/sign-up'>
 			Sign Up
 		</NavLink>
 		{/* Second Nav */}
