@@ -123,15 +123,6 @@ app.get("/api/location-search", cors(), async (req, res) => {
 //users get request
 app.get('/api/users', cors(), async (req, res) => {
     
-    // const STUDENTS = [
-
-    //     { id: 1, firstName: 'Lisa', lastName: 'Lee' },
-    //     { id: 2, firstName: 'Eileen', lastName: 'Long' },
-    //     { id: 3, firstName: 'Fariba', lastName: 'Dako' },
-    //     { id: 4, firstName: 'Cristina', lastName: 'Rodriguez' },
-    //     { id: 5, firstName: 'Andrea', lastName: 'Trejo' },
-    // ];
-    // res.json(STUDENTS);
     try{
         const { rows: user } = await db.query('SELECT * FROM users');
         res.send(user);
