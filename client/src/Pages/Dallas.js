@@ -19,7 +19,7 @@ const Dallas = (props) => {
   // We're using that initial student as our initial state
   const [post, setPost] = useState(initialPost);
 
-  const [food, setFood] = useState([]);
+  const [restaurants, setRestaurants] = useState({alias: "", name: "", address: ""});
 
   //create functions that handle the event of the user typing into the form
   const handleUsernameChange = (event) => {
@@ -62,53 +62,25 @@ const Dallas = (props) => {
     setPost((post) => ({ ...post, date }));
   };
 
-  //A function to handle the api request
-  // const loadApi = () => {
-  //   fetch("http://localhost:8080/api/location-search")
-  //     .then((response) => response.json())
-  //     .then(food => {
-  //       setFood(food);
-  //     })
-  // }
-
-  // useEffect(() => {
-  //   loadApi();
-  // }, []);
-  // console.log("restaurant names ", food)
-
-  const getApi = (e) => {
+  function getRestaurants(e) {
     e.preventDefault();
-    // let restaurantName = e.target.elements.restaurantName.value;
-    // console.log("Line 81 info", restaurantName);
     fetch("/api/location-search", {
       method: "GET",
-      headers: {"Content-Type": "application/json",
-    },
-    })
-    .then((response) => response.json())
+      headers: {"Content-Type": "application/json",},
+    }) .then((response) => response.json())
     .then((data) => {
-      setFood(data.response.food);
-    })
-    .catch((err) => console.error(`Error: ${err}`));
+      console.log("data check line 13 ", data.businesses[0]);
+      let fetchRestaurant = {
+        alias: data.businesses[0].alias,
+        name: data.businesses[0].name,
+        address: data.businesses[0].location.display_address
+      }
+      setRestaurants(fetchRestaurant);
+      console.log("checking restaurants line 24 ", restaurants)
+    }) .catch((err) => console.error(err))
   }
 
-  useEffect(() => {
-      getApi();
-    }, []);
-  console.log("restaurant names ", food)
 
-  // if (!food) {
-  //    <div>loading...</div>;
-  // } else {
-  //   return (
-  //     <ul>
-  //       {food.map(foods => (
-  //         <li key={foods.id}>{foods.name} {foods.location}</li>
-  //       ))}
-  //     </ul>
-  //   );
-  // };
-  
   //A function to handle the post request
   const makePost = (newPost) => {
     return fetch("/api/blogposts", {
@@ -230,16 +202,11 @@ const Dallas = (props) => {
             onChange={handleDateChange}
           />
         </fieldset>
-
-        <button type="submit">{!post.id ? "Submit" : "Save"}</button> <br/>
+        <button type="submit">{!post.id ? "Submit" : "Save"}</button> <br />
       </form>
-      <button onClick={(e) => getApi(e)}>Api Render</button>
-      <ul>
-      {food.map((foods, alias) => 
-        <li key={alias}>{foods.name} {foods.location}</li>
-    )}
-      </ul>
-      <div className="card" style={{width: "18rem"}}>
+      <button onClick={getRestaurants}>Api Render</button>
+      {!restaurants.alias ? (<p>Testing here</p>) : (<div> <p>{restaurants.alias}</p> <p>{restaurants.name}</p> <p>{restaurants.address}</p> </div>)}
+      <div className="card" style={{ width: "18rem" }}>
         <img className="card-img-top" src="..." alt="Card image cap" />
         <div className="card-body">
           <h5 className="card-title">Card title</h5>
