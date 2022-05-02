@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const Dallas = (props) => {
-  // Initial student in case that you want to update a new student
+  // Initial post in case that you want to update a new post
   const {
     initialPost = {
       id: null,
