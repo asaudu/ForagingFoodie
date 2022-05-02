@@ -1,5 +1,4 @@
-import { useState } from "react";
-//import 'Bootstrap' from "bootstrap";
+import { useState, useEffect } from "react";
 
 const Dallas = (props) => {
   // Initial student in case that you want to update a new student
@@ -19,6 +18,8 @@ const Dallas = (props) => {
 
   // We're using that initial student as our initial state
   const [post, setPost] = useState(initialPost);
+
+  const [food, setFood] = useState([]);
 
   //create functions that handle the event of the user typing into the form
   const handleUsernameChange = (event) => {
@@ -61,9 +62,56 @@ const Dallas = (props) => {
     setPost((post) => ({ ...post, date }));
   };
 
+  //A function to handle the api request
+  // const loadApi = () => {
+  //   fetch("http://localhost:8080/api/location-search")
+  //     .then((response) => response.json())
+  //     .then(food => {
+  //       setFood(food);
+  //     })
+  // }
+
+  // useEffect(() => {
+  //   loadApi();
+  // }, []);
+  // console.log("restaurant names ", food)
+
+  const getApi = (e) => {
+    e.preventDefault();
+    // let restaurantName = e.target.elements.restaurantName.value;
+    // console.log("Line 81 info", restaurantName);
+    fetch("/api/location-search", {
+      method: "GET",
+      headers: {"Content-Type": "application/json",
+    },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      setFood(data.response.food);
+    })
+    .catch((err) => console.error(`Error: ${err}`));
+  }
+
+  useEffect(() => {
+      getApi();
+    }, []);
+  console.log("restaurant names ", food)
+
+  // if (!food) {
+  //    <div>loading...</div>;
+  // } else {
+  //   return (
+  //     <ul>
+  //       {food.map(foods => (
+  //         <li key={foods.id}>{foods.name} {foods.location}</li>
+  //       ))}
+  //     </ul>
+  //   );
+  // };
+  
   //A function to handle the post request
   const makePost = (newPost) => {
-    return fetch("/api/users", {
+    return fetch("/api/blogposts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newPost),
@@ -79,7 +127,7 @@ const Dallas = (props) => {
 
   //a function to handle the Update request
   const updatePost = (existingPost) => {
-    return fetch(`/api/users/${existingPost.id}`, {
+    return fetch(`/api/blogposts/${existingPost.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(existingPost),
@@ -127,7 +175,7 @@ const Dallas = (props) => {
             value={post.imageurl}
             onChange={handleImageURLChange}
           />
-          <label>Alt</label>
+          <label>Image Description</label>
           <input
             type="text"
             id="add-alt"
@@ -143,7 +191,7 @@ const Dallas = (props) => {
             placeholder="Dish Name"
             required
             value={post.dish}
-            onChange={handleImageURLChange}
+            onChange={handleDishChange}
           />
           <label>Restaurant Name</label>
           <input
@@ -174,7 +222,7 @@ const Dallas = (props) => {
           />
           <label>Date</label>
           <input
-            type="datetime"
+            type="date"
             id="add-date"
             placeholder="Date"
             required
@@ -183,9 +231,14 @@ const Dallas = (props) => {
           />
         </fieldset>
 
-        <button type="submit">{!post.id ? "Submit" : "Save"}</button>
+        <button type="submit">{!post.id ? "Submit" : "Save"}</button> <br/>
       </form>
-
+      <button onClick={(e) => getApi(e)}>Api Render</button>
+      <ul>
+      {food.map((foods, alias) => 
+        <li key={alias}>{foods.name} {foods.location}</li>
+    )}
+      </ul>
       <div className="card" style={{width: "18rem"}}>
         <img className="card-img-top" src="..." alt="Card image cap" />
         <div className="card-body">
