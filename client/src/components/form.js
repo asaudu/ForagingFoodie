@@ -2,48 +2,48 @@ import { useState } from "react";
 
 const Form = (props) => {
     // Initial student in case that you want to update a new student
-    const {initialStudent = {id: null, 
-                            firstname: "", 
-                            lastname: ""}} = props;
+    const {initialPost = {id: null, 
+                            username: "", 
+                            email: ""}} = props;
 
 
     // We're using that initial student as our initial state                       
-    const [student, setStudent] = useState(initialStudent);
+    const [user, setUser] = useState(initialPost);
 
     //create functions that handle the event of the user typing into the form
-    const handleNameChange = (event) => {
-        const firstname = event.target.value;
-        setStudent((student) => ({ ...student, firstname }));
+    const handleUsernameChange = (event) => {
+        const username = event.target.value;
+        setUser((user) => ({ ...user, username }));
 
     }
 
-    const handleLastnameChange = (event) => {
-        const lastname = event.target.value;
-        setStudent((student) => ({ ...student, lastname }));
+    const handleEmailChange = (event) => {
+        const email = event.target.value;
+        setUser((user) => ({ ...user, email }));
 
     }
 
     //A function to handle the post request
-    const postStudent = (newStudent) => {
-        return fetch('/api/students', {
+    const postUser = (newUser) => {
+        return fetch('/api/users', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'}, 
-        body: JSON.stringify(newStudent)
+        body: JSON.stringify(newUser)
       }).then((response) => {
           return response.json()
       }).then((data) => {
         console.log("From the post ", data);
-        props.saveStudent(data);
+        props.saveUser(data);
       
     });
     }
 
     //a function to handle the Update request
-    const updateStudent = (existingStudent) =>{
-        return fetch(`/api/students/${existingStudent.id}`, {
+    const updateUser = (existingUser) =>{
+        return fetch(`/api/users/${existingUser.id}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'}, 
-            body: JSON.stringify(existingStudent)
+            body: JSON.stringify(existingUser)
           }).then((response) => {
               return response.json()
           }).then((data) => {
@@ -57,10 +57,10 @@ const Form = (props) => {
     // Than handle submit function now needs the logic for the update scenario 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(student.id){
-            updateStudent(student);
+        if(user.id){
+            updateUser(user);
         } else {
-            postStudent(student);
+            postUser(user);
         } 
         
     };
@@ -68,28 +68,28 @@ const Form = (props) => {
     return (
         <form onSubmit={handleSubmit}>
             <fieldset>
-                <label>First Name</label>
+                <label>Username</label>
                 <input
                     type="text"
                     id="add-user-name"
-                    placeholder="First Name"
+                    placeholder="Username"
                     required
-                    value={student.firstname}
-                    onChange={handleNameChange}
+                    value={user.username}
+                    onChange={handleUsernameChange}
 
                 />
-                <label>Last Name</label>
+                <label>Email</label>
                 <input
                     type="text"
-                    id="add-user-lastname"
-                    placeholder="Last Name"
+                    id="add-email"
+                    placeholder="Email"
                     required
-                    value={student.lastname}
-                    onChange={handleLastnameChange}
+                    value={user.email}
+                    onChange={handleEmailChange}
                 />
             </fieldset>
             
-            <button type="submit">{!student.id ? "Add" : "Save"}</button>
+            <button type="submit">{!user.id ? "Submit" : "Save"}</button>
         </form>
     );
 };
