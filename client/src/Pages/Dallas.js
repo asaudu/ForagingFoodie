@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import DallasPostList from "../components/DallasPostList";
 
 const Dallas = (props) => {
   // Initial post in case that you want to update a new post
@@ -61,7 +62,8 @@ const Dallas = (props) => {
     const date = event.target.value;
     setPost((post) => ({ ...post, date }));
   };
-
+  
+//getting the API data from the server
   function getRestaurants(e) {
     e.preventDefault();
     fetch("/api/location-search", {
@@ -80,7 +82,6 @@ const Dallas = (props) => {
     }) .catch((err) => console.error(err))
   }
 
-
   //A function to handle the post request
   const makePost = (newPost) => {
     return fetch("/api/blogposts", {
@@ -97,21 +98,21 @@ const Dallas = (props) => {
       });
   };
 
-  //a function to handle the Update request
-  const updatePost = (existingPost) => {
-    return fetch(`/api/blogposts/${existingPost.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(existingPost),
+ //a function to handle the Update request
+ const updatePost = (existingPost) => {
+  return fetch(`/api/blogposts/${existingPost.id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(existingPost),
+  })
+    .then((response) => {
+      return response.json();
     })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log("From put request ", data);
-        props.savePost(data);
-      });
-  };
+    .then((data) => {
+      console.log("From put request ", data);
+      props.savePost(data);
+    });
+};
 
   // Than handle submit function now needs the logic for the update scenario
   const handleSubmit = (e) => {
@@ -204,21 +205,11 @@ const Dallas = (props) => {
         </fieldset>
         <button type="submit">{!post.id ? "Submit" : "Save"}</button> <br />
       </form>
+
       <button onClick={getRestaurants}>Api Render</button>
       {!restaurants.alias ? (<p>Testing here</p>) : (<div> <p>{restaurants.alias}</p> <p>{restaurants.name}</p> <p>{restaurants.address}</p> </div>)}
-      <div className="card" style={{ width: "18rem" }}>
-        <img className="card-img-top" src="..." alt="Card image cap" />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <a href="#" className="btn btn-primary">
-            Go somewhere
-          </a>
-        </div>
-      </div>
+
+    <DallasPostList />
     </div>
   );
 };
