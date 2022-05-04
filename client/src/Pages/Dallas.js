@@ -83,19 +83,15 @@ const Dallas = (props) => {
   };
 
   //A function to handle the post request
-  const makePost = (newPost) => {
-    return fetch("/api/blogposts", {
+  const newPosts = async (newPost) => {
+    const response = await fetch("/api/blogposts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newPost),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log("From the post ", data);
-        props.savePost(data);
-      });
+    });
+    const data = await response.json();
+    console.log("From the post ", data);
+    props.savePost(data);
   };
 
  //a function to handle the Update request
@@ -120,7 +116,7 @@ const Dallas = (props) => {
     if (post.id) {
       updatePost(post);
     } else {
-      makePost(post);
+      newPosts(post);
     }
   };
 

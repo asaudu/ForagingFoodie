@@ -109,11 +109,11 @@ app.get("/api/blogposts", cors(), async (req, res) => {
 
 //users POST request
 app.post("/api/users", cors(), async (req, res) => {
-  const newUser = { username: req.body.username, email: req.body.email };
-  console.log([newUser.username, newUser.email]);
+  const newUser = { nickname: req.body.nickname, email: req.body.email };
+  console.log([newUser.nickname, newUser.email]);
   const result = await db.query(
-    "INSERT INTO users(username, email) VALUES($1, $2) RETURNING *",
-    [newUser.username, newUser.email]
+    "INSERT INTO users(nickname, email) VALUES($1, $2) RETURNING *",
+    [newUser.nickname, newUser.email]
   );
   console.log(result.rows[0]);
   res.json(result.rows[0]);
@@ -121,20 +121,27 @@ app.post("/api/users", cors(), async (req, res) => {
 
 //blogposts POST request
 app.post("/api/blogposts", cors(), async (req, res) => {
-  const newPost = req.body.newPost;
-  console.log([newUser.firstname, newUser.lastname]);
+  const newPost = {
+      imageurl: req.body.imageurl,
+      alt: req.body.alt,
+      dish: req.body.dish,
+      restaurant: req.body.restaurant,
+      content: req.body.content,
+      city: req.body.city,
+      date: req.body.date
+  };
+  console.log([newPost.dish, newPost.restaurant]);
   const result = await db.query(
-    "INSERT INTO blogposts(id, user_id, imageurl, alt, dish, restaurant, content, city, date) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+    "INSERT INTO blogposts(imageurl, alt, dish, restaurant, content, city, date) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+    
     [
-      newPost.id,
-      newPost.user_id,
       newPost.imageurl,
       newPost.alt,
       newPost.dish,
       newPost.restaurant,
       newPost.content,
       newPost.city,
-      newPost.date,
+      newPost.date
     ]
   );
   console.log(result.rows[0]);
@@ -167,6 +174,7 @@ app.put("/api/blogposts/:postId", cors(), async (req, res) => {
   console.log(updatePost);
   const query = `UPDATE blogposts SET imageurl=$1, alt=$2, dish=$3, restaurant=$4, content=$5, city=$6, date=$7 WHERE id = ${postId} RETURNING *`;
   console.log(query);
+
   const values = [
     updatePost.imageurl,
     updatePost.alt,
@@ -174,7 +182,7 @@ app.put("/api/blogposts/:postId", cors(), async (req, res) => {
     updatePost.restaurant,
     updatePost.content,
     updatePost.city,
-    updatePost.date,
+    updatePost.date
   ];
   try {
     const updated = await db.query(query, values);
@@ -187,25 +195,11 @@ app.put("/api/blogposts/:postId", cors(), async (req, res) => {
 });
 
 //the post request for the restaurant location for the post
-let location;
-app.post("/api/location-search", (req, res) => {
-  location = req.body.location;
-  res.redirect("/restaurantLocation");
-});
-
-//api request usual format
-// app.get("/api/weather", cors(), async (req, res) => {
-//     city = req.query.city;
-//      const url = `https://api.yelp.com/v3/businesses/search${process.env.API_KEY}`;
-//     try {
-//       const response = await fetch(url);
-//       const data = await response.json();
-//       console.log(data);
-//       res.send(data);
-//     } catch (err) {
-//       console.error("Fetch error: ", err);
-//     }
-//   });
+// let location;
+// app.post("/api/location-search", (req, res) => {
+//   location = req.body.location;
+//   res.redirect("/restaurantLocation");
+// });
 
 // console.log that your server is up and running
 app.listen(PORT, () => {
