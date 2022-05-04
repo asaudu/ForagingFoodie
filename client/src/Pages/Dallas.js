@@ -62,7 +62,7 @@ const Dallas = (props) => {
     const date = event.target.value;
     setPost((post) => ({ ...post, date }));
   };
-  
+
 //getting the API data from the server
   function getRestaurants(e) {
     e.preventDefault();
@@ -80,7 +80,7 @@ const Dallas = (props) => {
       setRestaurants(fetchRestaurant);
       console.log("checking restaurants line 24 ", restaurants)
     }) .catch((err) => console.error(err))
-  }
+  };
 
   //A function to handle the post request
   const makePost = (newPost) => {
