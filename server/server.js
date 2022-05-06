@@ -48,16 +48,67 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
 });
 
-app.get("/api/me", (req, res) => {
+app.get("/api/me", async (req, res) => {
+  console.log(req.oidc.isAuthenticated());
+  if (req.oidc.isAuthenticated()) {
+    console.log(req.oidc.user.email);
+    const search = await db.query(
+      `SELECT * FROM users WHERE email='${req.oidc.user.email}'`
+    );
+    console.log("search results", search.rows[0]);
+    if (search.rows.length === 0) {
+      const userCreated = await db.query(
+        "INSERT INTO users(nickname, email) VALUES($1, $2) RETURNING *",
+        [req.oidc.user.nickname, req.oidc.user.email]
+      );
+      console.log("userCreated", userCreated.rows[0]);
+    }
+    res.json(req.oidc.user);
+  } else {
+    res.status(401).json({ error: "Error in the auth0" });
+  }
+});
+
+/*
+app.get("/api/me", async (req, res) => {
   console.log(req.oidc.isAuthenticated());
 
   if (req.oidc.isAuthenticated()) {
     console.log(req.oidc.user);
+    const userCheck = await db.query(
+        `SELECT * FROM users WHERE email='${req.oidc.user}'`
+    )
+    console.log('searching for user', userCheck);
+    if(search.rows.length === 0) {
+        const newUser = await db.query(
+    "INSERT INTO users(nickname, email) VALUES($1, $2) RETURNING *",
+    [req.oidc.user.nickname, req.oidc.user.email]
+  );
+  console.log(newUser.rows[0]);
+  res.json(result.rows[0]);
+    }
     res.json(req.oidc.user);
   } else {
     res.status(401).json({ error: "Error with auth0" });
   }
 });
+
+
+app.get('/api/me', (req, res) => {
+    console.log(req.oidc.isAuthenticated());
+    if(req.oidc.isAuthenticated()){
+        console.log(req.oidc.user.email);
+        //search db for email to see if user exists in db
+           //if so, return user data
+           
+           //if not, create new data and return (make a variable out of it)
+    } else {
+        res.status(401).json({error: "Error in the auth0"});
+    }
+});
+*/
+
+//if statement to pull data
 
 app.use(express.static(REACT_BUILD_DIR));
 
@@ -122,18 +173,25 @@ app.post("/api/users", cors(), async (req, res) => {
 //blogposts POST request
 app.post("/api/blogposts", cors(), async (req, res) => {
   const newPost = {
-      imageurl: req.body.imageurl,
-      alt: req.body.alt,
-      dish: req.body.dish,
-      restaurant: req.body.restaurant,
-      content: req.body.content,
-      city: req.body.city,
-      date: req.body.date
+    imageurl: req.body.imageurl,
+    alt: req.body.alt,
+    dish: req.body.dish,
+    restaurant: req.body.restaurant,
+    content: req.body.content,
+    city: req.body.city,
+    date: req.body.date
   };
   console.log([newPost.dish, newPost.restaurant]);
+
+  let userIdLookup = await db.query(
+      "SELECT * FROM users WHERE nickname=($1)",
+      [req.body.username]
+  );
+  console.log(userIdLookup.rows[0]);
+
   const result = await db.query(
-    "INSERT INTO blogposts(imageurl, alt, dish, restaurant, content, city, date) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-    
+    "INSERT INTO blogposts(imageurl, alt, dish, restaurant, content, city, date, user_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+
     [
       newPost.imageurl,
       newPost.alt,
@@ -141,7 +199,8 @@ app.post("/api/blogposts", cors(), async (req, res) => {
       newPost.restaurant,
       newPost.content,
       newPost.city,
-      newPost.date
+      newPost.date,
+      userIdLookup.rows[0].id
     ]
   );
   console.log(result.rows[0]);
@@ -182,7 +241,7 @@ app.put("/api/blogposts/:postId", cors(), async (req, res) => {
     updatePost.restaurant,
     updatePost.content,
     updatePost.city,
-    updatePost.date
+    updatePost.date,
   ];
   try {
     const updated = await db.query(query, values);

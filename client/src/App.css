@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,8 +35,26 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+body {
+  color: #FF66B3;
 }
 
 ul{
   list-style: none;
+}
+
+.login {
+  list-style: none;
+}
+
+.cardHolder {
+  text-align: center;
+  max-width: auto;
+}
+
+img {
+  width: 8rem;
+  height: 40rem;
 }
