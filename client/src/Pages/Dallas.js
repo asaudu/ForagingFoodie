@@ -71,11 +71,11 @@ const Dallas = (props) => {
       headers: {"Content-Type": "application/json",},
     }) .then((response) => response.json())
     .then((data) => {
-      console.log("data check line 13 ", data.businesses[0]);
+      console.log("data check line 13 ", data.businesses);
       let fetchRestaurant = {
-        alias: data.businesses[0].alias,
-        name: data.businesses[0].name,
-        address: data.businesses[0].location.display_address
+        alias: data.businesses.alias,
+        name: data.businesses.name,
+        address: data.businesses.location.display_address
       }
       setRestaurants(fetchRestaurant);
       console.log("checking restaurants line 24 ", restaurants)

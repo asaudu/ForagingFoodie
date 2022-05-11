@@ -27,7 +27,7 @@ app.use(auth(config));
 const yelp = require("yelp-fusion");
 const { response } = require("express");
 const apiKey = process.env.API_KEY;
-
+const client = yelp.client(apiKey);
 // const searchRequest = {
 //     term: 'restaurants',
 //     location: 'Dallas'
@@ -38,18 +38,16 @@ const apiKey = process.env.API_KEY;
 //     location: 'Gunsan'
 // };
 
-const client = yelp.client(apiKey);
-//S.O stuff stops here
 
 //creates an endpoint for the route /api;
 app.get("/", (req, res) => {
   //console.log(req.oidc.isAuthenticated());
-  //res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
   res.sendFile(path.join(REACT_BUILD_DIR, "index.html"));
 });
 
 app.get("/api/me", async (req, res) => {
   console.log(req.oidc.isAuthenticated());
+  //if statements being used to chek if user exists in my database, if not then it adds them to my db from auth0
   if (req.oidc.isAuthenticated()) {
     console.log(req.oidc.user.email);
     const search = await db.query(
@@ -69,46 +67,6 @@ app.get("/api/me", async (req, res) => {
   }
 });
 
-/*
-app.get("/api/me", async (req, res) => {
-  console.log(req.oidc.isAuthenticated());
-
-  if (req.oidc.isAuthenticated()) {
-    console.log(req.oidc.user);
-    const userCheck = await db.query(
-        `SELECT * FROM users WHERE email='${req.oidc.user}'`
-    )
-    console.log('searching for user', userCheck);
-    if(search.rows.length === 0) {
-        const newUser = await db.query(
-    "INSERT INTO users(nickname, email) VALUES($1, $2) RETURNING *",
-    [req.oidc.user.nickname, req.oidc.user.email]
-  );
-  console.log(newUser.rows[0]);
-  res.json(result.rows[0]);
-    }
-    res.json(req.oidc.user);
-  } else {
-    res.status(401).json({ error: "Error with auth0" });
-  }
-});
-
-
-app.get('/api/me', (req, res) => {
-    console.log(req.oidc.isAuthenticated());
-    if(req.oidc.isAuthenticated()){
-        console.log(req.oidc.user.email);
-        //search db for email to see if user exists in db
-           //if so, return user data
-           
-           //if not, create new data and return (make a variable out of it)
-    } else {
-        res.status(401).json({error: "Error in the auth0"});
-    }
-});
-*/
-
-//if statement to pull data
 
 app.use(express.static(REACT_BUILD_DIR));
 
@@ -212,6 +170,7 @@ app.delete("/api/users/:userId", cors(), async (req, res) => {
   const userId = req.params.userId;
   //console.log(req.params);
   await db.query("DELETE FROM users WHERE id=$1", [userId]);
+  res.send({ status: "Successful delete!" });
   res.status(200).end();
 });
 
@@ -220,6 +179,7 @@ app.delete("/api/blogposts/:postId", cors(), async (req, res) => {
   const postId = req.params.postId;
   //console.log(req.params);
   await db.query("DELETE FROM blogposts WHERE id=$1", [postId]);
+  res.send({ status: "Successful delete!" });
   res.status(200).end();
 });
 

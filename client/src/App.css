@@ -54,7 +54,23 @@ ul{
   max-width: auto;
 }
 
-img {
+.img {
   width: 8rem;
   height: 40rem;
+}
+
+div.beginning {
+  margin: 35px;
+  background-color: #BBE6E4;
+  border: 1px solid black;
+  border-radius: 15px;
+  opacity: 0.77;
+}
+
+div.middle {
+  margin: 35px;
+  background-color: #BBE6E4;
+  border: 1px solid black;
+  border-radius: 15px;
+  opacity: 0.77;
 }

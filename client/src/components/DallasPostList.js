@@ -32,7 +32,7 @@ function DallasPostList() {
   const onDelete = async (id) => {
     try {
       const deleteResponse = await fetch(
-        `http://localhost:8080/api/posts/${id}`,
+        `/api/posts/${id}`,
         {
           method: "DELETE",
         }
