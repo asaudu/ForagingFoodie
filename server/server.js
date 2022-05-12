@@ -146,8 +146,8 @@ app.post("/api/blogposts", cors(), async (req, res) => {
     dish: req.body.dish,
     restaurant: req.body.restaurant,
     content: req.body.content,
-    city: req.body.city,
-    date: req.body.date
+    date: req.body.date,
+    alias: req.body.alias
   };
   console.log([newPost.dish, newPost.restaurant]);
 
@@ -158,7 +158,7 @@ app.post("/api/blogposts", cors(), async (req, res) => {
   console.log(userIdLookup.rows[0]);
 
   const result = await db.query(
-    "INSERT INTO blogposts(imageurl, alt, dish, restaurant, content, city, date, user_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+    "INSERT INTO blogposts(imageurl, alt, dish, restaurant, content, date, user_id, alias) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
 
     [
       newPost.imageurl,
@@ -166,9 +166,9 @@ app.post("/api/blogposts", cors(), async (req, res) => {
       newPost.dish,
       newPost.restaurant,
       newPost.content,
-      newPost.city,
       newPost.date,
-      userIdLookup.rows[0].id
+      userIdLookup.rows[0].id,
+      newPost.alias,
     ]
   );
   console.log(result.rows[0]);
@@ -201,7 +201,7 @@ app.put("/api/blogposts/:postId", cors(), async (req, res) => {
   // UPDATE students SET lastname = 'TestMarch' WHERE id = 1;
   console.log(postId);
   console.log(updatePost);
-  const query = `UPDATE blogposts SET imageurl=$1, alt=$2, dish=$3, restaurant=$4, content=$5, city=$6, date=$7 WHERE id = ${postId} RETURNING *`;
+  const query = `UPDATE blogposts SET imageurl=$1, alt=$2, dish=$3, restaurant=$4, content=$5, date=$6, alias=$7 WHERE id = ${postId} RETURNING *`;
   console.log(query);
 
   const values = [
@@ -210,8 +210,8 @@ app.put("/api/blogposts/:postId", cors(), async (req, res) => {
     updatePost.dish,
     updatePost.restaurant,
     updatePost.content,
-    updatePost.city,
     updatePost.date,
+    updatePost.alias
   ];
   try {
     const updated = await db.query(query, values);

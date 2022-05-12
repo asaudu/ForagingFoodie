@@ -20,14 +20,6 @@ const Dallas = (props) => {
   // We're using that initial student as our initial state
   const [post, setPost] = useState(initialPost);
 
-  // const [selectedRestaurant, setSelectedRestaurant] = useState({
-  //   alias: "",
-  //   name: "",
-  //   address: "",
-  // });
-
-  const [showRestaurant, setShowRestaurant] = useState("");
-
   const [matchingRestaurants, setMatchingRestaurants] = useState([]);
 
   //create functions that handle the event of the user typing into the form
@@ -55,7 +47,7 @@ const Dallas = (props) => {
     const restaurantQuery = event.target.value;
     getRestaurants(event, restaurantQuery);
     setPost((post) => ({ ...post, restaurant: restaurantQuery }));
-    setPost("");
+    //setPost("");
     //event.target.value = showRestaurant;
   };
 
@@ -91,10 +83,7 @@ const Dallas = (props) => {
           address: business.location.display_address,
         }));
         setMatchingRestaurants(matchingRestaurantsTemp);
-        console.log(
-          "checking fetchRestaurant ",
-          matchingRestaurantsTemp
-        );
+        console.log("checking fetchRestaurant ", matchingRestaurantsTemp);
         console.log("checking restaurants ", restaurant);
       })
       .catch((err) => console.error(err));
@@ -138,10 +127,14 @@ const Dallas = (props) => {
     }
   };
 
-  function changeValue(restaurantName) {
-    let input = restaurantName
-    setShowRestaurant(input);
-    console.log("inputCheck" , input)
+  function chosenRestaurant(restaurant) {
+    let input = restaurant;
+    setPost((post) => ({
+      ...post,
+      restaurant: restaurant.name,
+      alias: restaurant.alias,
+    }));
+    console.log("inputCheck", input);
   }
 
   return (
@@ -195,6 +188,8 @@ const Dallas = (props) => {
             value={post.restaurant}
             onChange={handleRestaurantChange}
           />
+
+          <input type="hidden" id="alias" required value={post.alias} />
           <label>Content</label>
           <input
             type="text"
@@ -217,13 +212,18 @@ const Dallas = (props) => {
         <button type="submit">{!post.id ? "Submit" : "Save"}</button> <br />
       </form>
 
-      
       <div>
         {matchingRestaurants.map((restaurant) => (
           <ul key={restaurant.id}>
-            <li> <a onClick={() => changeValue(restaurant)}> {restaurant.name} {JSON.stringify(restaurant)} </a> </li>
+            <li>
+              {" "}
+              <a onClick={() => chosenRestaurant(restaurant)}>
+                {" "}
+                {restaurant.name} {JSON.stringify(restaurant)}{" "}
+              </a>{" "}
+            </li>
           </ul>
-        ) )}
+        ))}
       </div>
 
       <DallasPostList />
