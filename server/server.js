@@ -84,14 +84,24 @@ app.get("/api/business/:alias", async (req, res) => {
 
 //creates an endpoint for the route /api; this one is beautiful
 app.get("/api/location-search", cors(), async (req, res) => {
-  location = req.query.location;
-  console.log("Line 48 check", location);
+  term = req.query.term;
+  console.log("Line 48 check", term);
 
   yelpResponse = await client.search({
-    term: "brunch",
+    term,
     location: "Richardson, TX",
   });
   res.send(yelpResponse.jsonBody);
+/*
+search(term, locaction){
+    return this.send({
+      url: 'https://api.yelp.com/v3/businesses/search',
+      query: term, locaction
+      bearerToken: this.apiKey
+    });
+  }
+*/
+
 });
 
 //users get request

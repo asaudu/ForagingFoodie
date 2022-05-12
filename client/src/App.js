@@ -13,7 +13,7 @@ import SignUp from "./Pages/SignUp";
 function App() {
   return (
     <Router>
-      <Login />
+     
       <Navbar />
       <Routes>
         <Route path="/" exact element={<Home />} />

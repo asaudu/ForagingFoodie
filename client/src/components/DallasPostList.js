@@ -31,12 +31,9 @@ function DallasPostList() {
 
   const onDelete = async (id) => {
     try {
-      const deleteResponse = await fetch(
-        `/api/posts/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const deleteResponse = await fetch(`/api/posts/${id}`, {
+        method: "DELETE",
+      });
       if (deleteResponse.status === 200) {
         setPosts(posts.filter((post) => post.id !== id));
       }
@@ -52,7 +49,12 @@ function DallasPostList() {
         <div className="row">
           <div className="col-12 col-md-6 col-lg-4">
             {posts.map((post) => (
-              <div key={post.id} className="card" className="mb-4 mt-4" style={{ width: "20rem" }}>
+              <div
+                key={post.id}
+                className="card"
+                className="mb-4 mt-4"
+                style={{ width: "20rem" }}
+              >
                 <img
                   className="card-img-top"
                   src={post.imageurl}
@@ -79,7 +81,8 @@ function DallasPostList() {
                     type="button"
                     onClick={() => {
                       onDelete(post.id);
-                    }}>
+                    }}
+                  >
                     Delete
                   </button>
                 </div>

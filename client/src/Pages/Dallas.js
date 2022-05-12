@@ -12,7 +12,7 @@ const Dallas = (props) => {
       dish: "",
       restaurant: "",
       content: "",
-      city: "",
+      alias: "",
       date: "",
     },
   } = props;
@@ -20,7 +20,15 @@ const Dallas = (props) => {
   // We're using that initial student as our initial state
   const [post, setPost] = useState(initialPost);
 
-  const [restaurants, setRestaurants] = useState({alias: "", name: "", address: ""});
+  // const [selectedRestaurant, setSelectedRestaurant] = useState({
+  //   alias: "",
+  //   name: "",
+  //   address: "",
+  // });
+
+  const [showRestaurant, setShowRestaurant] = useState("");
+
+  const [matchingRestaurants, setMatchingRestaurants] = useState([]);
 
   //create functions that handle the event of the user typing into the form
   const handleUsernameChange = (event) => {
@@ -44,8 +52,11 @@ const Dallas = (props) => {
   };
 
   const handleRestaurantChange = (event) => {
-    const restaurant = event.target.value;
-    setPost((post) => ({ ...post, restaurant }));
+    const restaurantQuery = event.target.value;
+    getRestaurants(event, restaurantQuery);
+    setPost((post) => ({ ...post, restaurant: restaurantQuery }));
+    setPost("");
+    //event.target.value = showRestaurant;
   };
 
   const handleContentChange = (event) => {
@@ -53,9 +64,9 @@ const Dallas = (props) => {
     setPost((post) => ({ ...post, content }));
   };
 
-  const handleCityChange = (event) => {
-    const city = event.target.value;
-    setPost((post) => ({ ...post, city }));
+  const handleAliasChange = (event) => {
+    const alias = event.target.value;
+    setPost((post) => ({ ...post, alias }));
   };
 
   const handleDateChange = (event) => {
@@ -63,24 +74,31 @@ const Dallas = (props) => {
     setPost((post) => ({ ...post, date }));
   };
 
-//getting the API data from the server
-  function getRestaurants(e) {
-    e.preventDefault();
-    fetch("/api/location-search", {
+  //getting the API data from the server
+  function getRestaurants(event, restaurant) {
+    event.preventDefault();
+    //restaurant
+    fetch(`/api/location-search?term=${restaurant}`, {
       method: "GET",
-      headers: {"Content-Type": "application/json",},
-    }) .then((response) => response.json())
-    .then((data) => {
-      console.log("data check line 13 ", data.businesses);
-      let fetchRestaurant = {
-        alias: data.businesses.alias,
-        name: data.businesses.name,
-        address: data.businesses.location.display_address
-      }
-      setRestaurants(fetchRestaurant);
-      console.log("checking restaurants line 24 ", restaurants)
-    }) .catch((err) => console.error(err))
-  };
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data check line 76 ", data.businesses);
+        let matchingRestaurantsTemp = data.businesses.map((business) => ({
+          alias: business.alias,
+          name: business.name,
+          address: business.location.display_address,
+        }));
+        setMatchingRestaurants(matchingRestaurantsTemp);
+        console.log(
+          "checking fetchRestaurant ",
+          matchingRestaurantsTemp
+        );
+        console.log("checking restaurants ", restaurant);
+      })
+      .catch((err) => console.error(err));
+  }
 
   //A function to handle the post request
   const newPosts = async (newPost) => {
@@ -94,21 +112,21 @@ const Dallas = (props) => {
     props.savePost(data);
   };
 
- //a function to handle the Update request
- const updatePost = (existingPost) => {
-  return fetch(`/api/blogposts/${existingPost.id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(existingPost),
-  })
-    .then((response) => {
-      return response.json();
+  //a function to handle the Update request
+  const updatePost = (existingPost) => {
+    return fetch(`/api/blogposts/${existingPost.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(existingPost),
     })
-    .then((data) => {
-      console.log("From put request ", data);
-      props.savePost(data);
-    });
-};
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log("From put request ", data);
+        props.savePost(data);
+      });
+  };
 
   // Than handle submit function now needs the logic for the update scenario
   const handleSubmit = (e) => {
@@ -119,6 +137,12 @@ const Dallas = (props) => {
       newPosts(post);
     }
   };
+
+  function changeValue(restaurantName) {
+    let input = restaurantName
+    setShowRestaurant(input);
+    console.log("inputCheck" , input)
+  }
 
   return (
     <div>
@@ -180,15 +204,6 @@ const Dallas = (props) => {
             value={post.content}
             onChange={handleContentChange}
           />
-          <label>City</label>
-          <input
-            type="text"
-            id="add-city"
-            placeholder="City Name"
-            required
-            value={post.city}
-            onChange={handleCityChange}
-          />
           <label>Date</label>
           <input
             type="date"
@@ -202,10 +217,16 @@ const Dallas = (props) => {
         <button type="submit">{!post.id ? "Submit" : "Save"}</button> <br />
       </form>
 
-      <button onClick={getRestaurants}>Api Render</button>
-      {!restaurants.alias ? (<p>Testing here</p>) : (<div> <p>{restaurants.alias}</p> <p>{restaurants.name}</p> <p>{restaurants.address}</p> </div>)}
+      
+      <div>
+        {matchingRestaurants.map((restaurant) => (
+          <ul key={restaurant.id}>
+            <li> <a onClick={() => changeValue(restaurant)}> {restaurant.name} {JSON.stringify(restaurant)} </a> </li>
+          </ul>
+        ) )}
+      </div>
 
-    <DallasPostList />
+      <DallasPostList />
     </div>
   );
 };
