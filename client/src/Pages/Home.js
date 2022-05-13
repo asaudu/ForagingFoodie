@@ -11,6 +11,7 @@ const Home = () => {
       });
   }, []);
 
+  //console.log("homepage post check", posts)
   return (
     <div>
       <h1 className="homePageTitle">Welcome to the Foraging Foodie</h1>
@@ -23,8 +24,9 @@ const Home = () => {
             alt="Card image cap"
           />
           <div className="card-body">
-            <h5 className="card-title">{post.dish}</h5>
+            <h5 className="card-title">{post.dish} from {post.restaurant}</h5>
             <p className="card-text-single">{post.content}</p>
+            
             <a href="#" className="btn btn-primary">
               Go somewhere
             </a>

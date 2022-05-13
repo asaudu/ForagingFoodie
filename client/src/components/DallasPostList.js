@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+//import IndividualPost from "./IndividualPost";
 //import EditForm from "./EditForm";
 
-function DallasPostList() {
+function DallasPostList(props) {
   const [posts, setPosts] = useState([]);
+
+  //let selected = props;
 
   const [editingPostId, setEditingPostId] = useState([]);
 
@@ -14,8 +17,20 @@ function DallasPostList() {
       });
   }, []);
 
+  //A function to handle the post request
+  const newPosts = async (newPost) => {
+    const response = await fetch("/api/blogposts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newPost),
+    });
+    const data = await response.json();
+    console.log("From the post ", data);
+    props.savePost(data);
+  };
+
   const updatePost = (savePost) => {
-    setPosts(() => {
+    setPosts((posts) => {
       const newPost = [];
       for (let post of posts) {
         if (post.id === savePost.id) {
@@ -26,12 +41,13 @@ function DallasPostList() {
       }
       return newPost;
     });
+    //this is meant to close the form
     setEditingPostId(null);
   };
 
   const onDelete = async (id) => {
     try {
-      const deleteResponse = await fetch(`/api/posts/${id}`, {
+      const deleteResponse = await fetch(`/api/blogposts/${id}`, {
         method: "DELETE",
       });
       if (deleteResponse.status === 200) {
@@ -42,7 +58,21 @@ function DallasPostList() {
     }
   };
 
-  console.log(posts);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (posts.id) {
+      updatePost(posts);
+    } else {
+      newPosts(posts);
+    }
+  };
+
+  //connecting the switchDisplayView functionality from the Dallas component
+  let onClickHandler = (post) => {
+    props.passingSelected(post);
+  };
+
+  //console.log(posts);
   return (
     <div>
       <div className="container">
@@ -75,8 +105,14 @@ function DallasPostList() {
                   {/* <a href="#" className="btn btn-primary">
             Go somewhere
           </a> */}
-                  <button>View</button>
-                  <button>Edit</button>
+                  <button
+                    onClick={() => {
+                      onClickHandler(post);
+                    }}
+                  >
+                    View
+                  </button>
+                  <button onClick={handleSubmit}>Edit</button>
                   <button
                     type="button"
                     onClick={() => {

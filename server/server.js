@@ -38,7 +38,6 @@ const client = yelp.client(apiKey);
 //     location: 'Gunsan'
 // };
 
-
 //creates an endpoint for the route /api;
 app.get("/", (req, res) => {
   //console.log(req.oidc.isAuthenticated());
@@ -67,7 +66,6 @@ app.get("/api/me", async (req, res) => {
   }
 });
 
-
 app.use(express.static(REACT_BUILD_DIR));
 
 app.get("/api/business/:alias", async (req, res) => {
@@ -92,7 +90,7 @@ app.get("/api/location-search", cors(), async (req, res) => {
     location: "Richardson, TX",
   });
   res.send(yelpResponse.jsonBody);
-/*
+  /*
 search(term, locaction){
     return this.send({
       url: 'https://api.yelp.com/v3/businesses/search',
@@ -101,7 +99,6 @@ search(term, locaction){
     });
   }
 */
-
 });
 
 //users get request
@@ -147,14 +144,13 @@ app.post("/api/blogposts", cors(), async (req, res) => {
     restaurant: req.body.restaurant,
     content: req.body.content,
     date: req.body.date,
-    alias: req.body.alias
+    alias: req.body.alias,
   };
   console.log([newPost.dish, newPost.restaurant]);
 
-  let userIdLookup = await db.query(
-      "SELECT * FROM users WHERE nickname=($1)",
-      [req.body.username]
-  );
+  let userIdLookup = await db.query("SELECT * FROM users WHERE nickname=($1)", [
+    req.body.username,
+  ]);
   console.log(userIdLookup.rows[0]);
 
   const result = await db.query(
@@ -190,7 +186,7 @@ app.delete("/api/blogposts/:postId", cors(), async (req, res) => {
   //console.log(req.params);
   await db.query("DELETE FROM blogposts WHERE id=$1", [postId]);
   res.send({ status: "Successful delete!" });
-  res.status(200).end();
+  //res.status(200).end();
 });
 
 // blogposts Put request - Update request
@@ -211,7 +207,7 @@ app.put("/api/blogposts/:postId", cors(), async (req, res) => {
     updatePost.restaurant,
     updatePost.content,
     updatePost.date,
-    updatePost.alias
+    updatePost.alias,
   ];
   try {
     const updated = await db.query(query, values);
