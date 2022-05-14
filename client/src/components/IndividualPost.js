@@ -11,7 +11,7 @@ function IndividualPost(props) {
 //         setPosts(posts);
 //       });
 //   }, []);
-console.log("individual post ", post);
+//console.log("individual post ", post);
 
   return (
     <div>
@@ -32,7 +32,7 @@ console.log("individual post ", post);
         <p className="card-text-single">{post.content}</p>
         <a href="#" className="btn btn-primary">
           Go somewhere
-        </a>
+        </a> 
       </div>
     </div>
   );

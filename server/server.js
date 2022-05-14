@@ -192,7 +192,7 @@ app.delete("/api/blogposts/:postId", cors(), async (req, res) => {
 // blogposts Put request - Update request
 app.put("/api/blogposts/:postId", cors(), async (req, res) => {
   const postId = req.params.postId;
-  const updatePost = req.body;
+  const updatePost = req.body.updatePost;
   //console.log(req.params);
   // UPDATE students SET lastname = 'TestMarch' WHERE id = 1;
   console.log(postId);

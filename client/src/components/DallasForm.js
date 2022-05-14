@@ -10,8 +10,8 @@ const DallasForm = (props) => {
       dish: "",
       restaurant: "",
       content: "",
-      alias: "",
       date: "",
+      alias: "",
     },
   } = props;
 
@@ -77,7 +77,7 @@ const DallasForm = (props) => {
         }));
         setMatchingRestaurants(matchingRestaurantsTemp);
         console.log("checking fetchRestaurant ", matchingRestaurantsTemp);
-        console.log("checking restaurants ", restaurant);
+        //console.log("checking restaurants ", restaurant);
       })
       .catch((err) => console.error(err));
   }
@@ -120,7 +120,7 @@ const DallasForm = (props) => {
     }
   };
 
-//function to define how to populate the Restaurant Name with the clicked option
+  //function to define how to populate the Restaurant Name with the clicked option
   function chosenRestaurant(restaurant) {
     let input = restaurant;
     setPost((post) => ({
@@ -129,13 +129,13 @@ const DallasForm = (props) => {
       alias: restaurant.alias,
     }));
     console.log("inputCheck", input);
-  };
+  }
 
   return (
     <div>
       <h1>Dallas Ventures Heeere</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form className="blogForm" onSubmit={handleSubmit}>
         <fieldset>
           <label>Username</label>
           <input
@@ -164,6 +164,7 @@ const DallasForm = (props) => {
             value={post.alt}
             onChange={handleAltChange}
           />
+          <br/>
           <label>Dish Name</label>
           <input
             type="text"
@@ -182,9 +183,6 @@ const DallasForm = (props) => {
             value={post.restaurant}
             onChange={handleRestaurantChange}
           />
-
-          <input type="hidden" id="alias" required value={post.alias} />
-
           <label>Content</label>
           <input
             type="text"
@@ -194,6 +192,7 @@ const DallasForm = (props) => {
             value={post.content}
             onChange={handleContentChange}
           />
+          <br/>
           <label>Date</label>
           <input
             type="date"
@@ -203,8 +202,11 @@ const DallasForm = (props) => {
             value={post.date}
             onChange={handleDateChange}
           />
+          <input type="hidden" id="alias" required value={post.alias} />
+          <br/>
+        <button type="submit">{!post.id ? "Submit" : "Save"}</button>
         </fieldset>
-        <button type="submit">{!post.id ? "Submit" : "Save"}</button> <br />
+        
       </form>
 
       <div>

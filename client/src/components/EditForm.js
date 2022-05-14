@@ -106,7 +106,7 @@ const EditForm = (props) => {
     <div>
       <h1>Dallas Ventures Heeere</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form className="blogForm" onSubmit={handleSubmit}>
         <fieldset>
           <label>Username</label>
           <input

@@ -53,6 +53,20 @@ const ContactMe = () => {
 
 		  </div>
 
+      <div classNam="row">
+            <div classNam="col-25">
+              <label for="email">Message</label>
+            </div>
+            <div classNam="col-75">
+              <textarea
+                type="text"
+                id="message"
+                name="message"
+                placeholder="What's on your mind?"
+                style={{height: "10rem", width: "20rem"}}
+              />
+            </div>
+          </div>
           {/* <div classNam="row">
             <div classNam="col-25">
               <label for="subject">Let me know what's up</label>
