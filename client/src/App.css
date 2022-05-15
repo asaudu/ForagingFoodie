@@ -1,30 +1,31 @@
-
 body {
-  color: #FF66B3;
+  color: #ff66b3;
 }
 
-ul{
+/* ul {
   list-style: none;
-}
+} */
 
 .login {
   list-style: none;
 }
 
 .cardHolder {
-  text-align: center;
-  max-width: auto;
+  /* text-align: center;
+  max-width: auto; */
+  /* width: 100%; */
+  border-spacing: 5px 1px;
   border: 2px solid black;
 }
 
-.img {
+/* .img {
   width: 8rem;
   height: 40rem;
-}
+} */
 
 div.beginning {
   margin: 35px;
-  background-color: #BBE6E4;
+  background-color: #bbe6e4;
   border: 1px solid black;
   border-radius: 15px;
   opacity: 0.77;
@@ -32,7 +33,7 @@ div.beginning {
 
 div.middle {
   margin: 35px;
-  background-color: #BBE6E4;
+  background-color: #bbe6e4;
   border: 1px solid black;
   border-radius: 15px;
   opacity: 0.77;
@@ -40,11 +41,49 @@ div.middle {
 
 .blogForm {
   margin: 25px;
-  background-color: #dfc3a5;;
+  background-color: #dfc3a5;
   border: 2px solid black;
   border-radius: 10px;
   opacity: 0.75;
 }
+
+.contactForm {
+  margin: 25px;
+  background-color: #bbe6e4;
+  height: 25rem;
+  width: 25rem;
+  border: 2px solid black;
+  border-radius: 5px;
+  opacity: 0.75;
+}
+
+/* .row {
+  width: 33.3%;
+  float: left;
+} */
+
+div.card {
+  border: 0 none;
+  display: inline-block;
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+div.cardPostList {
+  border: 0 none;
+  display: inline-block;
+  height: auto;
+  max-width: 100%;
+  margin: 6rem;
+  vertical-align: middle;
+
+}
+
+span {
+  
+  
+};
 /*
  .button {
   transition-duration: 0.4s;
@@ -52,5 +91,5 @@ div.middle {
 
 .button:hover {
   background-color: #4CAF50; /* Green */
-  /* color: white;
+/* color: white;
 };  */

@@ -11,6 +11,13 @@ const Home = () => {
       });
   }, []);
 
+  function checkShit(e) {
+    e.preventDefault()
+    console.log("what is thiss?!?!?")
+  }
+
+  // Math.floor(Math.random(post) * 4)
+
   //console.log("homepage post check", posts)
   return (
     <div>
@@ -27,7 +34,7 @@ const Home = () => {
             <h5 className="card-title">{post.dish} from {post.restaurant}</h5>
             <p className="card-text-single">{post.content}</p>
             
-            <a href="#" className="btn btn-primary">
+            <a onClick={checkShit} href="#" className="btn btn-primary">
               Go somewhere
             </a>
           </div>

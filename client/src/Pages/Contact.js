@@ -20,7 +20,7 @@ const ContactMe = () => {
       <h1>Tryna Get in touch?</h1>
 
       <div className="container">
-        <form action="/action_page.php">
+        <form action="/action_page.php" className="contactForm">
           <div classNam="row">
             <div classNam="col-25">
               <label for="uname">Username</label>
@@ -49,11 +49,9 @@ const ContactMe = () => {
             </div>
           </div>
 
-		  <div>
+          <div></div>
 
-		  </div>
-
-      <div classNam="row">
+          <div classNam="row">
             <div classNam="col-25">
               <label for="email">Message</label>
             </div>
@@ -63,27 +61,16 @@ const ContactMe = () => {
                 id="message"
                 name="message"
                 placeholder="What's on your mind?"
-                style={{height: "10rem", width: "20rem"}}
+                style={{ height: "10rem", width: "20rem" }}
               />
             </div>
           </div>
-          {/* <div classNam="row">
-            <div classNam="col-25">
-              <label for="subject">Let me know what's up</label>
-            </div>
-            <div classNam="col-75">
-              <textarea
-                id="subject"
-                name="subject"
-                placeholder="Write something.."
-                style="height:200px"
-              ></textarea>
-            </div>
+
+          <br />
+          <input type="submit" value="Submit" />
+          {/* <div class="row">
+            
           </div> */}
-          <br/>
-          <div class="row">
-            <input type="submit" value="Submit" />
-          </div>
         </form>
       </div>
     </div>

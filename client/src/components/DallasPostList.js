@@ -75,58 +75,61 @@ function DallasPostList(props) {
   //console.log(posts);
   return (
     <div>
-      <div className="container">
+      {/* <div className="container-xxl">
         <div className="row">
-          <div className="col-12 col-md-6 col-lg-4">
-            {posts.map((post) => (
-              <div
-                key={post.id}
-                className="card"
-                className="mb-4 mt-4"
-                style={{ width: "20rem" }}
-              >
-                <img
-                  className="card-img-top"
-                  src={post.imageurl}
-                  alt="Card image cap"
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{post.dish}</h5>
-                  <p
-                    className="card-text"
-                    style={{
-                      height: "1.5rem",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    {post.content}
-                  </p>
-                  {/* <a href="#" className="btn btn-primary">
+          <div className="col-12 col-md-6 col-lg-4"> */}
+          <span>
+              {posts.map((post) => (
+                <div
+                  key={post.id}
+                  className="cardPostList"
+                  style={{ width: "20rem" }}
+                >
+                  <img
+                    className="card-img-top"
+                    src={post.imageurl}
+                    alt="Card image cap"
+                    style={{ width: "500px", height: "400px" }}
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{post.dish}</h5>
+                    <p
+                      className="card-text"
+                      style={{
+                        height: "1.5rem",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {post.content}
+                    </p>
+                    {/* <a href="#" className="btn btn-primary">
             Go somewhere
           </a> */}
-                  <button
-                    onClick={() => {
-                      onClickHandler(post);
-                    }}
-                  >
-                    View
-                  </button>
-                  <button onClick={handleSubmit}>Edit</button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onDelete(post.id);
-                    }}
-                  >
-                    Delete
-                  </button>
+                    <button
+                      onClick={() => {
+                        onClickHandler(post);
+                      }}
+                    >
+                      View
+                    </button>
+                    <button onClick={handleSubmit}>Edit</button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onDelete(post.id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+              </span>
+          {/* </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
