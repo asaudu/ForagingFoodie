@@ -44,7 +44,8 @@ function DallasPostList(props) {
     //this is meant to close the form
     setEditingPostId(null);
   };
-
+  
+//logic for deleting an existing post by id
   const onDelete = async (id) => {
     try {
       const deleteResponse = await fetch(`/api/blogposts/${id}`, {
@@ -58,6 +59,7 @@ function DallasPostList(props) {
     }
   };
 
+  //logic for submitting a new post and saving changes made to an existing post
   const handleSubmit = (e) => {
     e.preventDefault();
     if (posts.id) {
@@ -75,10 +77,6 @@ function DallasPostList(props) {
   //console.log(posts);
   return (
     <div>
-      {/* <div className="container-xxl">
-        <div className="row">
-          <div className="col-12 col-md-6 col-lg-4"> */}
-          <span>
               {posts.map((post) => (
                 <div
                   key={post.id}
@@ -126,10 +124,6 @@ function DallasPostList(props) {
                   </div>
                 </div>
               ))}
-              </span>
-          {/* </div>
-        </div>
-      </div> */}
     </div>
   );
 }

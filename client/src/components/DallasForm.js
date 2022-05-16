@@ -135,7 +135,7 @@ const DallasForm = (props) => {
     <div>
       <h1>Dallas Ventures Heeere</h1>
 
-      <form className="blogForm" onSubmit={handleSubmit}>
+      <form className="blogForm" onSubmit={handleSubmit} style={{ height: "21.5rem", width: "38rem" }}>
         <fieldset>
           <label>Username</label>
           <input
@@ -146,6 +146,16 @@ const DallasForm = (props) => {
             value={post.username}
             onChange={handleUsernameChange}
           />
+          <label>Date</label>
+          <input
+            type="date"
+            id="add-date"
+            placeholder="Date"
+            required
+            value={post.date}
+            onChange={handleDateChange}
+          />
+          <br/>
           <label>Image URL</label>
           <input
             type="text"
@@ -183,25 +193,17 @@ const DallasForm = (props) => {
             value={post.restaurant}
             onChange={handleRestaurantChange}
           />
-          <label>Content</label>
-          <input
+          <label>Content</label> <br/>
+          <textarea
             type="text"
             id="add-content"
             placeholder="Content Here"
             required
             value={post.content}
             onChange={handleContentChange}
+            style={{ height: "10rem", width: "20rem" }}
           />
-          <br/>
-          <label>Date</label>
-          <input
-            type="date"
-            id="add-date"
-            placeholder="Date"
-            required
-            value={post.date}
-            onChange={handleDateChange}
-          />
+          
           <input type="hidden" id="alias" required value={post.alias} />
           <br/>
         <button type="submit">{!post.id ? "Submit" : "Save"}</button>
