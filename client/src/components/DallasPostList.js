@@ -117,9 +117,6 @@ function DallasPostList(props) {
             >
               {post.content}
             </p>
-            {/* <a href="#" className="btn btn-primary">
-            Go somewhere
-          </a> */}
             <button
               onClick={() => {
                 onClickHandler(post);
