@@ -62,7 +62,7 @@ div.middle {
   float: left;
 } */
 
-div.card {
+.card {
   border: 0 none;
   display: inline-block;
   height: auto;

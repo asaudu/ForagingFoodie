@@ -11,10 +11,6 @@ const Home = () => {
       });
   }, []);
 
-  function checkShit(e) {
-    e.preventDefault()
-    console.log("what is thiss?!?!?")
-  }
 
   //getting 1 profuct to render on the page
   posts.splice(1, 4);
@@ -37,7 +33,7 @@ const Home = () => {
             <h5 className="card-title">{post.dish} from {post.restaurant}</h5>
             <p className="card-text-single">{post.content}</p>
             
-            {/* <a onClick={checkShit} href="#" className="btn btn-primary">
+            {/* <a href="#" className="btn btn-primary">
               Go somewhere
             </a> */}
           </div>
