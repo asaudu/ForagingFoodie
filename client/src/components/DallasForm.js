@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const EditForm = (props) => {
-  // Initial student in case that you want to update a new student
+const DallasForm = (props) => {
   const {
     initialPost = {
       id: null,
@@ -11,13 +10,34 @@ const EditForm = (props) => {
       dish: "",
       restaurant: "",
       content: "",
-      city: "",
       date: "",
+      alias: "",
     },
   } = props;
 
   // We're using that initial student as our initial state
   const [post, setPost] = useState(initialPost);
+
+  const [matchingRestaurants, setMatchingRestaurants] = useState([]);
+  const [user, setUser] = useState(undefined);
+
+  const loadUser = () => {
+    fetch("/api/me")
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return undefined;
+        }
+      })
+      .then((user) => {
+        setUser(user);
+      });
+  };
+
+  useEffect(() => {
+    loadUser();
+  }, []);
 
   //create functions that handle the event of the user typing into the form
   const handleUsernameChange = (event) => {
@@ -41,8 +61,11 @@ const EditForm = (props) => {
   };
 
   const handleRestaurantChange = (event) => {
-    const restaurant = event.target.value;
-    setPost((post) => ({ ...post, restaurant }));
+    const restaurantQuery = event.target.value;
+    getRestaurants(event, restaurantQuery);
+    setPost((post) => ({ ...post, restaurant: restaurantQuery }));
+    //setPost("");
+    //event.target.value = showRestaurant;
   };
 
   const handleContentChange = (event) => {
@@ -50,30 +73,44 @@ const EditForm = (props) => {
     setPost((post) => ({ ...post, content }));
   };
 
-  const handleCityChange = (event) => {
-    const city = event.target.value;
-    setPost((post) => ({ ...post, city }));
-  };
-
   const handleDateChange = (event) => {
     const date = event.target.value;
     setPost((post) => ({ ...post, date }));
   };
 
+  //getting the API data from the server
+  function getRestaurants(event, restaurant) {
+    event.preventDefault();
+    //restaurant
+    fetch(`/api/location-search?term=${restaurant}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data check line 76 ", data.businesses);
+        let matchingRestaurantsTemp = data.businesses.map((business) => ({
+          alias: business.alias,
+          name: business.name,
+          address: business.location.display_address,
+        }));
+        setMatchingRestaurants(matchingRestaurantsTemp);
+        console.log("checking fetchRestaurant ", matchingRestaurantsTemp);
+        //console.log("checking restaurants ", restaurant);
+      })
+      .catch((err) => console.error(err));
+  }
+
   //A function to handle the post request
-  const makePost = (newPost) => {
-    return fetch("/api/blogposts", {
+  const newPosts = async (newPost) => {
+    const response = await fetch("/api/blogposts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newPost),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log("From the post ", data);
-        props.savePost(data);
-      });
+    });
+    const data = await response.json();
+    console.log("From the post ", data);
+    props.savePost(data);
   };
 
   //a function to handle the Update request
@@ -98,15 +135,31 @@ const EditForm = (props) => {
     if (post.id) {
       updatePost(post);
     } else {
-      makePost(post);
+      newPosts(post);
     }
   };
+
+  //function to define how to populate the Restaurant Name with the clicked option
+  function chosenRestaurant(restaurant) {
+    let input = restaurant;
+    setPost((post) => ({
+      ...post,
+      restaurant: restaurant.name,
+      alias: restaurant.alias,
+    }));
+    console.log("inputCheck", input);
+  }
 
   return (
     <div>
       <h1>Dallas Ventures Heeere</h1>
-
-      <form className="blogForm" onSubmit={handleSubmit}>
+{ user &&
+    <li>
+        <form
+        className="blogForm"
+        onSubmit={handleSubmit}
+        style={{ height: "21.5rem", width: "38rem" }}
+      >
         <fieldset>
           <label>Username</label>
           <input
@@ -117,6 +170,16 @@ const EditForm = (props) => {
             value={post.username}
             onChange={handleUsernameChange}
           />
+          <label>Date</label>
+          <input
+            type="date"
+            id="add-date"
+            placeholder="Date"
+            required
+            value={post.date}
+            onChange={handleDateChange}
+          />
+          <br />
           <label>Image URL</label>
           <input
             type="text"
@@ -126,15 +189,16 @@ const EditForm = (props) => {
             value={post.imageurl}
             onChange={handleImageURLChange}
           />
-          <label>Alt</label>
+          <label>Image Description</label>
           <input
             type="text"
             id="add-alt"
-            placeholder="Alt"
+            placeholder="Image Description"
             required
             value={post.alt}
             onChange={handleAltChange}
           />
+          <br />
           <label>Dish Name</label>
           <input
             type="text"
@@ -153,39 +217,40 @@ const EditForm = (props) => {
             value={post.restaurant}
             onChange={handleRestaurantChange}
           />
-          <label>Content</label>
-          <input
+          <label>Content</label> <br />
+          <textarea
             type="text"
             id="add-content"
-            placeholder="Content Here"
+            placeholder="Dish the Deets Here"
             required
             value={post.content}
             onChange={handleContentChange}
+            style={{ height: "10rem", width: "20rem" }}
           />
-          <label>City</label>
-          <input
-            type="text"
-            id="add-city"
-            placeholder="City Name"
-            required
-            value={post.city}
-            onChange={handleCityChange}
-          />
-          <label>Date</label>
-          <input
-            type="date"
-            id="add-date"
-            placeholder="Date"
-            required
-            value={post.date}
-            onChange={handleDateChange}
-          />
+          <input type="hidden" id="alias" required value={post.alias} />
+          <br />
+          <button type="submit">{!post.id ? "Submit" : "Save"}</button>
         </fieldset>
-
-        <button type="submit">{!post.id ? "Submit" : "Save"}</button>
       </form>
+    </li>
+}
+      
+
+      <div>
+        {matchingRestaurants.map((restaurant) => (
+          <ul key={restaurant.id}>
+            <li>
+              {" "}
+              <a onClick={() => chosenRestaurant(restaurant)}>
+                {" "}
+                {restaurant.name} {JSON.stringify(restaurant)}{" "}
+              </a>{" "}
+            </li>
+          </ul>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default EditForm;
+export default DallasForm;

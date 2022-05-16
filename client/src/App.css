@@ -1,42 +1,96 @@
-.App {
-  text-align: center;
+body {
+  color: #ff66b3;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+/* ul {
+  list-style: none;
+} */
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-ul{
+.login {
   list-style: none;
 }
+
+.cardHolder {
+  /* text-align: center;
+  max-width: auto; */
+  /* width: 100%; */
+  border-spacing: 5px 1px;
+  border: 2px solid black;
+}
+
+/* .img {
+  width: 8rem;
+  height: 40rem;
+} */
+
+div.beginning {
+  margin: 35px;
+  background-color: #bbe6e4;
+  border: 1px solid black;
+  border-radius: 15px;
+  opacity: 0.77;
+}
+
+div.middle {
+  margin: 35px;
+  background-color: #bbe6e4;
+  border: 1px solid black;
+  border-radius: 15px;
+  opacity: 0.77;
+}
+
+.blogForm {
+  margin: 25px;
+  background-color: #dfc3a5;
+  border: 2px solid black;
+  border-radius: 10px;
+  opacity: 0.75;
+}
+
+.contactForm {
+  margin: 25px;
+  background-color: #bbe6e4;
+  height: 25rem;
+  width: 25rem;
+  border: 2px solid black;
+  border-radius: 5px;
+  opacity: 0.75;
+}
+
+/* .row {
+  width: 33.3%;
+  float: left;
+} */
+
+.card {
+  border: 0 none;
+  display: inline-block;
+  padding-left: 20rem;
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+div.cardPostList {
+  border: 0 none;
+  display: inline-block;
+  height: auto;
+  max-width: 100%;
+  margin: 6rem;
+  vertical-align: middle;
+
+}
+
+span {
+  
+  
+};
+/*
+ .button {
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  background-color: #4CAF50; /* Green */
+/* color: white;
+};  */

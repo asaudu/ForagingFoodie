@@ -3,7 +3,7 @@ const SignUp = (props) => {
 
 	// Initial student in case that you want to update a new student
     const {initialPost = {id: null, 
-		username: "", 
+		nickname: "", 
 		email: ""}} = props;
 
 
@@ -11,9 +11,9 @@ const SignUp = (props) => {
 const [user, setUser] = useState(initialPost);
 
 //create functions that handle the event of the user typing into the form
-const handleUsernameChange = (event) => {
-const username = event.target.value;
-setUser((user) => ({ ...user, username }));
+const handleNicknameChange = (event) => {
+const nickname = event.target.value;
+setUser((user) => ({ ...user, nickname }));
 
 }
 
@@ -48,7 +48,7 @@ body: JSON.stringify(existingUser)
 return response.json()
 }).then((data) => {
 console.log("From put request ", data);
-props.saveStudent(data);
+props.saveUser(data);
 
 });
 
@@ -66,14 +66,7 @@ const handleSubmit = (e) => {
 };
 
 return (
-	<div
-	// style={{
-	// 	display: 'flex',
-	// 	justifyContent: 'Left',
-	// 	alignItems: 'Left',
-	// 	height: '100vh'
-	// }}
-	>
+	<div>
 	<h1>Sign Up</h1>
 
 	<form onSubmit={handleSubmit}>
@@ -81,11 +74,11 @@ return (
                 <label>Username</label>
                 <input
                     type="text"
-                    id="add-user-name"
-                    placeholder="Username"
+                    id="add-nick-name"
+                    placeholder="Nickname"
                     required
-                    value={user.username}
-                    onChange={handleUsernameChange}
+                    value={user.nickname}
+                    onChange={handleNicknameChange}
 
                 />
                 <label>Email</label>
