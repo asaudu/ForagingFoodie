@@ -16,7 +16,10 @@ const Home = () => {
     console.log("what is thiss?!?!?")
   }
 
-  // Math.floor(Math.random(post) * 4)
+  //getting 1 profuct to render on the page
+  posts.splice(1, 4);
+
+  //Math.floor(Math.random(posts) * 4)
 
   //console.log("homepage post check", posts)
   return (
@@ -34,9 +37,9 @@ const Home = () => {
             <h5 className="card-title">{post.dish} from {post.restaurant}</h5>
             <p className="card-text-single">{post.content}</p>
             
-            <a onClick={checkShit} href="#" className="btn btn-primary">
+            {/* <a onClick={checkShit} href="#" className="btn btn-primary">
               Go somewhere
-            </a>
+            </a> */}
           </div>
         </div>
       ))}
