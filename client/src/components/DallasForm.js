@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const DallasForm = (props) => {
   const {
@@ -19,6 +19,25 @@ const DallasForm = (props) => {
   const [post, setPost] = useState(initialPost);
 
   const [matchingRestaurants, setMatchingRestaurants] = useState([]);
+  const [user, setUser] = useState(undefined);
+
+  const loadUser = () => {
+    fetch("/api/me")
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return undefined;
+        }
+      })
+      .then((user) => {
+        setUser(user);
+      });
+  };
+
+  useEffect(() => {
+    loadUser();
+  }, []);
 
   //create functions that handle the event of the user typing into the form
   const handleUsernameChange = (event) => {
@@ -134,8 +153,9 @@ const DallasForm = (props) => {
   return (
     <div>
       <h1>Dallas Ventures Heeere</h1>
-
-      <form
+{ user &&
+    <li>
+        <form
         className="blogForm"
         onSubmit={handleSubmit}
         style={{ height: "21.5rem", width: "38rem" }}
@@ -212,6 +232,9 @@ const DallasForm = (props) => {
           <button type="submit">{!post.id ? "Submit" : "Save"}</button>
         </fieldset>
       </form>
+    </li>
+}
+      
 
       <div>
         {matchingRestaurants.map((restaurant) => (

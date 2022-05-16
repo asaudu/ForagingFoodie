@@ -33,9 +33,9 @@ const Home = () => {
             <h5 className="card-title">{post.dish} from {post.restaurant}</h5>
             <p className="card-text-single">{post.content}</p>
             
-            {/* <a href="#" className="btn btn-primary">
+            {/* <button href="#" className="btn btn-primary">
               Go somewhere
-            </a> */}
+            </button> */}
           </div>
         </div>
       ))}

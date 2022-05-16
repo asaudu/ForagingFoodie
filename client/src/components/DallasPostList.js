@@ -8,6 +8,7 @@ function DallasPostList(props) {
   //let selected = props;
 
   const [editingPostId, setEditingPostId] = useState([]);
+  const [user, setUser] = useState(undefined);
 
   useEffect(() => {
     fetch("/api/blogposts")
@@ -15,6 +16,24 @@ function DallasPostList(props) {
       .then((posts) => {
         setPosts(posts);
       });
+  }, []);
+
+  const loadUser = () => {
+    fetch("/api/me")
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          return undefined;
+        }
+      })
+      .then((user) => {
+        setUser(user);
+      });
+  };
+
+  useEffect(() => {
+    loadUser();
   }, []);
 
   //A function to handle the post request
@@ -44,8 +63,8 @@ function DallasPostList(props) {
     //this is meant to close the form
     setEditingPostId(null);
   };
-  
-//logic for deleting an existing post by id
+
+  //logic for deleting an existing post by id
   const onDelete = async (id) => {
     try {
       const deleteResponse = await fetch(`/api/blogposts/${id}`, {
@@ -77,53 +96,53 @@ function DallasPostList(props) {
   //console.log(posts);
   return (
     <div>
-              {posts.map((post) => (
-                <div
-                  key={post.id}
-                  className="cardPostList"
-                  style={{ width: "20rem" }}
-                >
-                  <img
-                    className="card-img-top"
-                    src={post.imageurl}
-                    alt="Card image cap"
-                    style={{ width: "500px", height: "400px" }}
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">{post.dish}</h5>
-                    <p
-                      className="card-text"
-                      style={{
-                        height: "1.5rem",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {post.content}
-                    </p>
-                    {/* <a href="#" className="btn btn-primary">
+      {posts.map((post) => (
+        <div key={post.id} className="cardPostList" style={{ width: "20rem" }}>
+          <img
+            className="card-img-top"
+            src={post.imageurl}
+            alt="Card image cap"
+            style={{ width: "500px", height: "400px" }}
+          />
+          <div className="card-body">
+            <h5 className="card-title">{post.dish}</h5>
+            <p
+              className="card-text"
+              style={{
+                height: "1.5rem",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {post.content}
+            </p>
+            {/* <a href="#" className="btn btn-primary">
             Go somewhere
           </a> */}
-                    <button
-                      onClick={() => {
-                        onClickHandler(post);
-                      }}
-                    >
-                      View
-                    </button>
-                    <button onClick={handleSubmit}>Edit</button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onDelete(post.id);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              ))}
+            <button
+              onClick={() => {
+                onClickHandler(post);
+              }}
+            >
+              View
+            </button>
+            {user && (
+              <li>
+                <button onClick={handleSubmit}>Edit</button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onDelete(post.id);
+                  }}
+                >
+                  Delete
+                </button>
+              </li>
+            )}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
