@@ -1,5 +1,5 @@
 import { useState } from "react";
-import DallasForm from "../components/DallasForm";
+import Form from "../components/Form";
 import DallasPostList from "../components/DallasPostList";
 import IndividualPost from "../components/IndividualPost";
 
@@ -27,7 +27,7 @@ const Dallas = () => {
   } else {
     switchDisplayView = (
       <div>
-        <DallasForm />
+        <Form header={"Dallas Ventures Heeere"} location={"Dallas, TX"}/>
         <DallasPostList passingSelected={passingSelected} />
       </div>
     );

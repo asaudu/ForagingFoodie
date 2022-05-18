@@ -11,7 +11,6 @@ const Home = () => {
       });
   }, []);
 
-
   //getting 1 profuct to render on the page
   posts.splice(1, 4);
 
@@ -30,9 +29,11 @@ const Home = () => {
             alt="Card image cap"
           />
           <div className="card-body">
-            <h5 className="card-title">{post.dish} from {post.restaurant}</h5>
+            <h5 className="card-title">
+              {post.dish} from {post.restaurant}
+            </h5>
             <p className="card-text-single">{post.content}</p>
-            
+
             {/* <button href="#" className="btn btn-primary">
               Go somewhere
             </button> */}

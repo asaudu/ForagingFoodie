@@ -83,11 +83,12 @@ app.get("/api/business/:alias", async (req, res) => {
 //creates an endpoint for the route /api; this one is beautiful
 app.get("/api/location-search", cors(), async (req, res) => {
   term = req.query.term;
+  location = req.query.location;
   console.log("Line 48 check", term);
 
   yelpResponse = await client.search({
     term,
-    location: "Richardson, TX",
+    location,
   });
   res.send(yelpResponse.jsonBody);
   /*
@@ -99,6 +100,17 @@ search(term, locaction){
     });
   }
 */
+});
+
+app.get("/api/location-search2", cors(), async (req, res) => {
+  term = req.query.term;
+  console.log("Line 48 check", term);
+
+  yelpResponse = await client.search({
+    term,
+    location: "Gunsan, South Korea",
+  });
+  res.send(yelpResponse.jsonBody);
 });
 
 //users get request
@@ -192,11 +204,11 @@ app.delete("/api/blogposts/:postId", cors(), async (req, res) => {
 // blogposts Put request - Update request
 app.put("/api/blogposts/:postId", cors(), async (req, res) => {
   const postId = req.params.postId;
-  const updatePost = req.body.updatePost;
+  const updatePost = req.body;
   //console.log(req.params);
   // UPDATE students SET lastname = 'TestMarch' WHERE id = 1;
-  console.log(postId);
-  console.log(updatePost);
+  console.log("updated post id", postId);
+  console.log("updated post content", updatePost);
   const query = `UPDATE blogposts SET imageurl=$1, alt=$2, dish=$3, restaurant=$4, content=$5, date=$6, alias=$7 WHERE id = ${postId} RETURNING *`;
   console.log(query);
 

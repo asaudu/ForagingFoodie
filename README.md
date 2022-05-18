@@ -1,20 +1,30 @@
-### Your First Express and React App
-Create full stack apps with React and Express. Run your client, server and do a restart of your dump db to have a full-stack project working in minutes
+# the Foraging Foodie
+## Overview
+This is a blog where I share my experiences at different restaurants that helped me re-discover Dallas. I also wanted to use this as practice to fully implement CRUD.
+There is a view for the general public, and a slightly different view for those who login, which allows them to see a blog post form, an edit button, and a delete button.
 
-# Step by Step instructions - To use this project as your start point
-### For create the whole project
-1. Go to your source directory in your terminal and run the command `git clone https://github.com/Yosolita1978/React-Express-PairProgramming.git NAMENEWDIRECTORY`
-[!You will something like this in your terminal.](https://github.com/Yosolita1978/screenshoots/blob/main/template/Screen%20Shot%202022-03-20%20at%207.50.46%20PM.png?raw=true)
+## Technology
+the Foraging Foodie was built with:
+- HTML
+- CSS
+- JavaScript
+- PostgreSQL
+- Express
+- React
+- Node
+- [Yelp API](https://www.yelp.com/developers/documentation/v3/business_search)
+- [Auth0](https://auth0.com/)
+- [Docker](https://www.docker.com/)
+- [Heroku](https://heroku.com)
 
-2. To restore the DB dump file that the project already contain, just run the command `psql -U postgres -f db.sql`. Make sure that you have your Postgres password on hand. The psql console will ask you for your password. 
-3. To clean your folder from the owner git, run the command `rm -rf .git`
-4. Run the command `git init` to start your git repository
-5. Go to the server folder in the project (`cd server`) and run the command `npm install`
-6. Inside your server folder, create an .env file with `touch .env`
-7. Inside your server folder, open the file `.env.example` and copy the file there. 
-8. Inside your .env file, paste the string from .env.example and change the variables with the values from the project. For this template, don't change the name of your db.
-9. Inside your server file: run the command `psql -U postgres -f db.sql` to restore the DB from the file db.sql
-10. Go to the cliente folder (`cd .. and cd client`) and run the command `npm start`
-11. Both server should run now with `npm start`
-12. Go to localhost:3000 and you should see something like this
-[!You will something like this in your terminal.](https://github.com/Yosolita1978/screenshoots/blob/main/template/Screen%20Shot%202022-03-20%20at%208.58.13%20PM.png?raw=true)
+## Getting Started Locally
+1. Install & run Docker
+2. Clone this repo `git clone https://github.com/asaudu/ForagingFoodie.git`
+3. In the root directory, run `rm -rf .git`, then run `git init` to start your git repository
+4. Go to the server folder (`cd server`) in the project and run `npm install`
+5. Copy the root example environment file `cp .env.example .env`
+    then `npm run db:init`
+6. If you want to try the app with Auth0, then be sure to setup
+    `cp server/.env.example `
+7. Then go to the client folder (`cd..`, then `cd server`) and run `npm install`
+8. From the server(running on localhost:3001) and the client(running on localhost:3000), run `npm start`
