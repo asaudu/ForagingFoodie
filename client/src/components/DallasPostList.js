@@ -12,7 +12,7 @@ function DallasPostList(props) {
   const [user, setUser] = useState(undefined);
 
   useEffect(() => {
-    fetch("/api/blogposts")
+    fetch("/api/blogposts/dallas")
       .then((response) => response.json())
       .then((posts) => {
         setPosts(posts);

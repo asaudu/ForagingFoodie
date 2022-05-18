@@ -107,7 +107,9 @@ app.get("/api/users", cors(), async (req, res) => {
 //blogposts get request
 app.get("/api/blogposts", cors(), async (req, res) => {
   try {
-    const { rows: posts } = await db.query("SELECT * FROM blogposts WHERE NOT city='Korea'");
+    const { rows: posts } = await db.query(
+      "SELECT * FROM blogposts WHERE NOT city='Korea'"
+    );
     res.send(posts);
   } catch (e) {
     console.log(e);
@@ -115,6 +117,20 @@ app.get("/api/blogposts", cors(), async (req, res) => {
   }
 });
 
+//get request for dallas posts
+app.get("/api/blogposts/dallas", cors(), async (req, res) => {
+  try {
+    const { rows: posts } = await db.query(
+      "SELECT * FROM blogposts WHERE NOT city='Korea'"
+    );
+    res.send(posts);
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({ e });
+  }
+});
+
+//get request for korea posts
 app.get("/api/blogposts/korea", cors(), async (req, res) => {
   try {
     const { rows: posts } = await db.query(
