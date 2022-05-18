@@ -11,7 +11,7 @@ function KoreaPostList(props) {
   const [user, setUser] = useState(undefined);
 
   useEffect(() => {
-    fetch("/api/blogposts")
+    fetch("/api/blogposts/korea")
       .then((response) => response.json())
       .then((posts) => {
         setPosts(posts);
@@ -64,12 +64,12 @@ function KoreaPostList(props) {
     setEditingPostId(null);
   };
 
-//a function to grab the post id of the student that we want to edit
-const onEdit = (post) => {
-  const editingId = post.id;
-  console.log(editingId);
-  setEditingPostId(editingId);
-};
+  //a function to grab the post id of the student that we want to edit
+  const onEdit = (post) => {
+    const editingId = post.id;
+    console.log(editingId);
+    setEditingPostId(editingId);
+  };
 
   //logic for deleting an existing post by id
   const onDelete = async (id) => {
@@ -111,57 +111,72 @@ const onEdit = (post) => {
     <div>
       {posts.map((post) => {
         if (post.id === editingPostId) {
-          return <Form header={"Editing Mode"} location={"Gunsan, South Korea"} initialPost={post} addPost={addPost}/>;
+          return (
+            <Form
+              header={"Editing Mode"}
+              location={"Gunsan, South Korea"}
+              initialPost={post}
+              addPost={addPost}
+            />
+          );
         } else {
           return (
-        <div key={post.id} className="cardPostList" style={{ width: "20rem" }}>
-          <img
-            className="card-img-top"
-            src={post.imageurl}
-            alt="Card image cap"
-            style={{ width: "500px", height: "400px" }}
-          />
-          <div className="card-body">
-            <h5 className="card-title">{post.dish}</h5>
-            <p
-              className="card-text"
-              style={{
-                height: "1.5rem",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
+            <div
+              key={post.id}
+              className="cardPostList"
+              style={{ width: "20rem" }}
             >
-              {post.content}
-            </p>
-            <button
-              onClick={() => {
-                onClickHandler(post);
-              }}
-            >
-              View
-            </button>
-            {user && (
-              <>
-                <button onClick={(e) => {
-                  e.preventDefault();
-                  onEdit(post)
-                }}>Edit</button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onDelete(post.id);
+              <img
+                className="card-img-top"
+                src={post.imageurl}
+                alt="Card image cap"
+                style={{ width: "500px", height: "400px" }}
+              />
+              <div className="card-body">
+                <h5 className="card-title">{post.dish}</h5>
+                <p
+                  className="card-text"
+                  style={{
+                    height: "1.5rem",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
                   }}
                 >
-                  Delete
+                  {post.content}
+                </p>
+                <button
+                  onClick={() => {
+                    onClickHandler(post);
+                  }}
+                >
+                  View
                 </button>
-                </>
-            )}
-          </div>
-        </div>
-          )
-                }
-              })}
+                {user && (
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onEdit(post);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onDelete(post.id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          );
+        }
+      })}
     </div>
   );
 }

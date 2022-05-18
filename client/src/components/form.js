@@ -12,10 +12,11 @@ const Form = (props) => {
       content: "",
       date: "",
       alias: "",
+      city: "",
     },
   } = props;
 
-  console.log("dallas form prop check", props)
+  console.log("form prop check", props)
 
   // We're using that initial post as our initial state
   const [post, setPost] = useState(initialPost);
@@ -80,10 +81,6 @@ const Form = (props) => {
     setPost((post) => ({ ...post, date }));
   };
 
-//   const handleLocationChange = (event) => {
-//     const date = event.target.value;
-//     setPost((post) => ({ ...post, location }));
-//   };
 
   //getting the API data from the server
   function getRestaurants(event, restaurant) {
@@ -234,6 +231,7 @@ const Form = (props) => {
             style={{ height: "10rem", width: "20rem" }}
           />
           <input type="hidden" id="alias" required value={post.alias} />
+          <input type="hidden" id="city" required value={post.city} />
           <br />
           <button type="submit">{!post.id ? "Submit" : "Save"}</button>
         </fieldset>
