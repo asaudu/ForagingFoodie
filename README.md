@@ -2,7 +2,7 @@
 ![1](https://user-images.githubusercontent.com/94813320/169441504-d4b7c8c9-be21-41dd-a257-7c31b3e116f8.png)
 <hr>
 <br>
-# Contents
+Contents
 
   - [Overview](#overview)
   - [Technology](#technology)
@@ -13,7 +13,7 @@
   - [Installation](#installation)
 <hr>
 <br> 
-# Overview
+Overview
 This is a blog where I share my experiences at different restaurants that helped me re-discover Dallas. I also wanted to use this as practice to fully implement CRUD.
 There is a view for the general public, and a slightly different view for those who login, which allows them to see a blog post form, an edit button, and a delete button.
 <hr>
@@ -49,8 +49,8 @@ the Foraging Foodie was built with:
 
 <hr>
 <br>
-## Getting Started Locally
-### Prerequisites
+# Getting Started Locally
+# Prerequisites
 **Docker**
 
 This project relies on Docker for to run the PostgreSQL server for registered users. To use those features, you must install Docker first before continuing.
