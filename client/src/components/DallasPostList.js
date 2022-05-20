@@ -65,12 +65,12 @@ function DallasPostList(props) {
     setEditingPostId(null);
   };
 
-//a function to grab the post id of the student that we want to edit
-const onEdit = (post) => {
-  const editingId = post.id;
-  console.log(editingId);
-  setEditingPostId(editingId);
-};
+  //a function to grab the post id of the student that we want to edit
+  const onEdit = (post) => {
+    const editingId = post.id;
+    console.log(editingId);
+    setEditingPostId(editingId);
+  };
 
   //logic for deleting an existing post by id
   const onDelete = async (id) => {
@@ -112,61 +112,91 @@ const onEdit = (post) => {
       {posts.map((post) => {
         if (post.id === editingPostId) {
           console.log("dpList prop check", post);
-          return <Form header={"Editing Mode"} location={"Dallas, TX"} initialPost={post} addPost={addPost}/>;
+          return (
+            <Form
+              header={"Editing Mode"}
+              location={"Dallas, TX"}
+              initialPost={post}
+              addPost={addPost}
+            />
+          );
         } else {
           return (
-        <div key={post.id} className="cardPostList" style={{ width: "20rem" }}>
-          <img
-            className="card-img-top"
-            className="rounded-circle"
-            src={post.imageurl}
-            alt="Card image cap"
-            style={{ width: "500px", height: "400px" }}
-          />
-          <div className="card-body" style={{backgroundColor: "#084b83", borderRadius: "8px"}}>
-            <h5 className="card-title">{post.dish}</h5>
-            <p
-              className="card-text"
-              style={{
-                height: "1.5rem",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
+            <div
+              key={post.id}
+              className="cardPostList"
+              style={{ width: "20rem" }}
             >
-              {post.content}
-            </p>
-            <button
-            style={{ borderRadius: "8px", boxShadow: "0 2px #ff66b3", color: "#ff66b3" }}
-              onClick={() => {
-                onClickHandler(post);
-              }}
-            >
-              View
-            </button>
-            {user && (
-              <>
-                <button 
-                style={{ borderRadius: "8px" }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  onEdit(post)
-                }}>Edit</button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onDelete(post.id);
+              <img
+                className="card-img-top"
+                className="rounded-circle"
+                src={post.imageurl}
+                alt="Card image cap"
+                style={{ width: "500px", height: "400px" }}
+              />
+              <div
+                className="card-body"
+                style={{ backgroundColor: "#084b83", borderRadius: "8px" }}
+              >
+                <h5 className="card-title">{post.dish}</h5>
+                <p
+                  className="card-text"
+                  style={{
+                    height: "1.5rem",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
                   }}
                 >
-                  Delete
+                  {post.content}
+                </p>
+                <button
+                  style={{
+                    borderRadius: "8px",
+                    boxShadow: "0 2px #ff66b3",
+                    color: "#ff66b3",
+                  }}
+                  onClick={() => {
+                    onClickHandler(post);
+                  }}
+                >
+                  View
                 </button>
-                </>
-            )}
-          </div>
-        </div>
-          )
-                }
-              })}
+                {user && (
+                  <>
+                    <button
+                      style={{
+                        borderRadius: "8px",
+                        boxShadow: "0 2px #ff66b3",
+                        color: "#ff66b3",
+                      }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onEdit(post);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      style={{
+                        borderRadius: "8px",
+                        boxShadow: "0 2px #ff66b3",
+                        color: "#ff66b3",
+                      }}
+                      type="button"
+                      onClick={() => {
+                        onDelete(post.id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          );
+        }
+      })}
     </div>
   );
 }

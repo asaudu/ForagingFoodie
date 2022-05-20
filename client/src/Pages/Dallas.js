@@ -19,14 +19,23 @@ const Dallas = () => {
     switchDisplayView = (
       <div>
         <IndividualPost post={selected} />
-        
-        <button style={{ borderRadius: "8px", boxShadow: "0 2px #ff66b3", color: "#ff66b3" }} onClick={() => setSelected(null)}>Go Back</button>
+
+        <button
+          style={{
+            borderRadius: "8px",
+            boxShadow: "0 2px #ff66b3",
+            color: "#ff66b3",
+          }}
+          onClick={() => setSelected(null)}
+        >
+          Go Back
+        </button>
       </div>
     );
   } else {
     switchDisplayView = (
       <div>
-        <Form header={"Dallas Ventures Heeere"} location={"Dallas, TX"}/>
+        <Form header={"Dallas Ventures Heeere"} location={"Dallas, TX"} />
         <DallasPostList passingSelected={passingSelected} />
       </div>
     );
