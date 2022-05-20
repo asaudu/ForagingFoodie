@@ -1,5 +1,6 @@
 # the Foraging Foodie
-![1](https://user-images.githubusercontent.com/94813320/169441504-d4b7c8c9-be21-41dd-a257-7c31b3e116f8.png)
+![ForagingFoodie Logo](https://user-images.githubusercontent.com/94813320/169443408-b6174ec6-616e-4d24-a485-12e5c214f2f9.png)
+
 <hr>
 <br>
 
