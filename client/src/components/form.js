@@ -81,15 +81,17 @@ const Form = (props) => {
     setPost((post) => ({ ...post, date }));
   };
 
-
   //getting the API data from the server
   function getRestaurants(event, restaurant) {
     event.preventDefault();
     //restaurant
-    fetch(`/api/location-search?term=${restaurant}&location=${props.location}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    })
+    fetch(
+      `/api/location-search?term=${restaurant}&location=${props.location}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log("data check line 76 ", data.businesses);
@@ -103,7 +105,7 @@ const Form = (props) => {
         //console.log("checking restaurants ", restaurant);
       })
       .catch((err) => console.error(err));
-  };
+  }
 
   //A function to handle the post request
   const newPosts = async (newPost) => {
@@ -152,92 +154,101 @@ const Form = (props) => {
       alias: restaurant.alias,
     }));
     console.log("inputCheck", input);
-  };
+  }
 
   return (
     <div>
       <h1>{props.header}</h1>
-{ user &&
+      {user && (
         <form
-        className="blogForm"
-        onSubmit={handleSubmit}
-        style={{ height: "21.5rem", width: "38rem" }}
-      >
-        <fieldset>
-          <label>Username</label>
-          <input
-            type="text"
-            id="add-user-name"
-            placeholder="Username"
-            required
-            value={post.username}
-            onChange={handleUsernameChange}
-          />
-          <label>Date</label>
-          <input
-            type="date"
-            id="add-date"
-            placeholder="Date"
-            required
-            value={post.date}
-            onChange={handleDateChange}
-          />
-          <br />
-          <label>Image URL</label>
-          <input
-            type="text"
-            id="add-image-url"
-            placeholder="Image URL"
-            required
-            value={post.imageurl}
-            onChange={handleImageURLChange}
-          />
-          <label>Image Description</label>
-          <input
-            type="text"
-            id="add-alt"
-            placeholder="Image Description"
-            required
-            value={post.alt}
-            onChange={handleAltChange}
-          />
-          <br />
-          <label>Dish Name</label>
-          <input
-            type="text"
-            id="add-dish-name"
-            placeholder="Dish Name"
-            required
-            value={post.dish}
-            onChange={handleDishChange}
-          />
-          <label>Restaurant Name</label>
-          <input
-            type="text"
-            id="add-restaurant"
-            placeholder="Restaurant Name"
-            required
-            value={post.restaurant}
-            onChange={handleRestaurantChange}
-          />
-          <label>Content</label> <br />
-          <textarea
-            type="text"
-            id="add-content"
-            placeholder="Dish the Deets Here"
-            required
-            value={post.content}
-            onChange={handleContentChange}
-            style={{ height: "10rem", width: "20rem" }}
-          />
-          <input type="hidden" id="alias" required value={post.alias} />
-          <input type="hidden" id="city" required value={post.city} />
-          <br />
-          <button style={{ borderRadius: "8px", boxShadow: "0 2px #ff66b3", color: "#ff66b3" }} type="submit">{!post.id ? "Submit" : "Save"}</button>
-        </fieldset>
-      </form>
-}
-      
+          className="blogForm"
+          onSubmit={handleSubmit}
+          style={{ height: "21.5rem", width: "38rem" }}
+        >
+          <fieldset>
+            <label>Username</label>
+            <input
+              type="text"
+              id="add-user-name"
+              placeholder="Username"
+              required
+              value={post.username}
+              onChange={handleUsernameChange}
+            />
+            <label>Date</label>
+            <input
+              type="date"
+              id="add-date"
+              placeholder="Date"
+              required
+              value={post.date}
+              onChange={handleDateChange}
+            />
+            <br />
+            <label>Image URL</label>
+            <input
+              type="text"
+              id="add-image-url"
+              placeholder="Image URL"
+              required
+              value={post.imageurl}
+              onChange={handleImageURLChange}
+            />
+            <label>Image Description</label>
+            <input
+              type="text"
+              id="add-alt"
+              placeholder="Image Description"
+              required
+              value={post.alt}
+              onChange={handleAltChange}
+            />
+            <br />
+            <label>Dish Name</label>
+            <input
+              type="text"
+              id="add-dish-name"
+              placeholder="Dish Name"
+              required
+              value={post.dish}
+              onChange={handleDishChange}
+            />
+            <label>Restaurant Name</label>
+            <input
+              type="text"
+              id="add-restaurant"
+              placeholder="Restaurant Name"
+              required
+              value={post.restaurant}
+              onChange={handleRestaurantChange}
+            />
+            <label>Content</label> <br />
+            <textarea
+              type="text"
+              id="add-content"
+              placeholder="Dish the Deets Here"
+              required
+              value={post.content}
+              onChange={handleContentChange}
+              style={{ height: "10rem", width: "20rem" }}
+            />
+            <input type="hidden" id="alias" required value={post.alias} />
+            <input type="hidden" id="city" required value={post.city} />
+            <br />
+            <button
+              style={{
+                borderRadius: "8px",
+                boxShadow: "0 2px #ff66b3",
+                color: "#ff66b3",
+              }}
+              type="submit"
+            >
+              {!post.id ? "Submit" : "Save"}
+            </button>
+          </fieldset>
+        </form>
+      )}
+
       <div>
         {matchingRestaurants.map((restaurant) => (
           <ul key={restaurant.id}>
