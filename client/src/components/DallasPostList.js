@@ -118,11 +118,12 @@ const onEdit = (post) => {
         <div key={post.id} className="cardPostList" style={{ width: "20rem" }}>
           <img
             className="card-img-top"
+            className="rounded-circle"
             src={post.imageurl}
             alt="Card image cap"
             style={{ width: "500px", height: "400px" }}
           />
-          <div className="card-body">
+          <div className="card-body" style={{backgroundColor: "#084b83"}}>
             <h5 className="card-title">{post.dish}</h5>
             <p
               className="card-text"
@@ -136,6 +137,7 @@ const onEdit = (post) => {
               {post.content}
             </p>
             <button
+            style={{ borderRadius: "8px", boxShadow: "0 2px #ff66b3", color: "#ff66b3" }}
               onClick={() => {
                 onClickHandler(post);
               }}
@@ -144,7 +146,9 @@ const onEdit = (post) => {
             </button>
             {user && (
               <>
-                <button onClick={(e) => {
+                <button 
+                style={{ borderRadius: "8px" }}
+                onClick={(e) => {
                   e.preventDefault();
                   onEdit(post)
                 }}>Edit</button>

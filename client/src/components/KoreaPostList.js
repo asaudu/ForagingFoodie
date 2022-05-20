@@ -128,11 +128,12 @@ function KoreaPostList(props) {
             >
               <img
                 className="card-img-top"
+                className="rounded-circle"
                 src={post.imageurl}
                 alt="Card image cap"
                 style={{ width: "500px", height: "400px" }}
               />
-              <div className="card-body">
+              <div className="card-body" style={{backgroundColor: "#f0f6f6"}}>
                 <h5 className="card-title">{post.dish}</h5>
                 <p
                   className="card-text"
@@ -146,6 +147,7 @@ function KoreaPostList(props) {
                   {post.content}
                 </p>
                 <button
+                style={{ borderRadius: "8px", boxShadow: "0 2px #ff66b3", color: "#ff66b3" }}
                   onClick={() => {
                     onClickHandler(post);
                   }}
@@ -155,6 +157,7 @@ function KoreaPostList(props) {
                 {user && (
                   <>
                     <button
+                    style={{ borderRadius: "8px", boxShadow: "0 2px #ff66b3", color: "#ff66b3" }}
                       onClick={(e) => {
                         e.preventDefault();
                         onEdit(post);
@@ -163,6 +166,7 @@ function KoreaPostList(props) {
                       Edit
                     </button>
                     <button
+                    style={{ borderRadius: "8px", boxShadow: "0 2px #ff66b3", color: "#ff66b3" }}
                       type="button"
                       onClick={() => {
                         onDelete(post.id);

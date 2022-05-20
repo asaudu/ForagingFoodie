@@ -16,9 +16,9 @@ const Form = (props) => {
     },
   } = props;
 
-  console.log("form prop check", props)
+  console.log("form prop check", props);
 
-  // We're using that initial post as our initial state
+  // We are using that initial post as our initial state
   const [post, setPost] = useState(initialPost);
 
   const [matchingRestaurants, setMatchingRestaurants] = useState([]);
@@ -103,7 +103,7 @@ const Form = (props) => {
         //console.log("checking restaurants ", restaurant);
       })
       .catch((err) => console.error(err));
-  }
+  };
 
   //A function to handle the post request
   const newPosts = async (newPost) => {
@@ -152,7 +152,7 @@ const Form = (props) => {
       alias: restaurant.alias,
     }));
     console.log("inputCheck", input);
-  }
+  };
 
   return (
     <div>
@@ -233,12 +233,11 @@ const Form = (props) => {
           <input type="hidden" id="alias" required value={post.alias} />
           <input type="hidden" id="city" required value={post.city} />
           <br />
-          <button type="submit">{!post.id ? "Submit" : "Save"}</button>
+          <button style={{ borderRadius: "8px" }} type="submit">{!post.id ? "Submit" : "Save"}</button>
         </fieldset>
       </form>
 }
       
-
       <div>
         {matchingRestaurants.map((restaurant) => (
           <ul key={restaurant.id}>

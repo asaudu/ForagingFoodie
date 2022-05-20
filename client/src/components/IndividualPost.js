@@ -30,9 +30,9 @@ function IndividualPost(props) {
           {post.restaurant} {post.display_address}
         </p>
         <p className="card-text-single">{post.content}</p>
-        <a href="#" className="btn btn-primary">
+        {/* <a href="#" className="btn btn-primary">
           Go somewhere
-        </a> 
+        </a>  */}
       </div>
     </div>
   );
