@@ -25,8 +25,10 @@ const Home = () => {
         <div key={post.id} className="card" style={{ width: "45rem" }}>
           <img
             className="card-img-top"
+            className="rounded-circle"
             src={post.imageurl}
             alt="Card image cap"
+            style={{ width: "600px", height: "500px" }}
           />
           <div className="card-body">
             <h5 className="card-title">

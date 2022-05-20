@@ -123,7 +123,7 @@ const onEdit = (post) => {
             alt="Card image cap"
             style={{ width: "500px", height: "400px" }}
           />
-          <div className="card-body" style={{backgroundColor: "#084b83"}}>
+          <div className="card-body" style={{backgroundColor: "#084b83", borderRadius: "8px"}}>
             <h5 className="card-title">{post.dish}</h5>
             <p
               className="card-text"

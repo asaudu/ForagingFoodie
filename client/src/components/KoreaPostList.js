@@ -133,7 +133,7 @@ function KoreaPostList(props) {
                 alt="Card image cap"
                 style={{ width: "500px", height: "400px" }}
               />
-              <div className="card-body" style={{backgroundColor: "#f0f6f6"}}>
+              <div className="card-body" style={{backgroundColor: "#f0f6f6", borderRadius: "8px"}}>
                 <h5 className="card-title">{post.dish}</h5>
                 <p
                   className="card-text"
