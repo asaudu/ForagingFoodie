@@ -1,20 +1,113 @@
-### Your First Express and React App
-Create full stack apps with React and Express. Run your client, server and do a restart of your dump db to have a full-stack project working in minutes
+# the Foraging Foodie
+![1](https://user-images.githubusercontent.com/94813320/169441504-d4b7c8c9-be21-41dd-a257-7c31b3e116f8.png)
+<hr>
+<br>
+## Contents
 
-# Step by Step instructions - To use this project as your start point
-### For create the whole project
-1. Go to your source directory in your terminal and run the command `git clone https://github.com/Yosolita1978/React-Express-PairProgramming.git NAMENEWDIRECTORY`
-[!You will something like this in your terminal.](https://github.com/Yosolita1978/screenshoots/blob/main/template/Screen%20Shot%202022-03-20%20at%207.50.46%20PM.png?raw=true)
+  - [Overview](#overview)
+  - [Technology](#technology)
+  - [Userflow](#userflow)
+  - [Database Schema](#database-schema)
+  - [Wireframes](#wireframes)
+  - [Getting Started Locally](#getting-started-locally)
+  - [Installation](#installation)
+<hr>
+<br> 
+## Overview
+This is a blog where I share my experiences at different restaurants that helped me re-discover Dallas. I also wanted to use this as practice to fully implement CRUD.
+There is a view for the general public, and a slightly different view for those who login, which allows them to see a blog post form, an edit button, and a delete button.
+<hr>
+<br>
+## Technology
+the Foraging Foodie was built with:
+- HTML
+- CSS
+- JavaScript
+- PostgreSQL
+- Express
+- React
+- Node
+- [Yelp API](https://www.yelp.com/developers/documentation/v3/business_search)
+- [Auth0](https://auth0.com/)
+- [Docker](https://www.docker.com/)
+- [Heroku](https://heroku.com)
+<hr>
+<br>
+## User Flow
+<img width="724" alt="UserFlow" src="https://user-images.githubusercontent.com/94813320/169442015-95393be1-a26d-41e4-a4fe-61a12b75d755.png">
 
-2. To restore the DB dump file that the project already contain, just run the command `psql -U postgres -f db.sql`. Make sure that you have your Postgres password on hand. The psql console will ask you for your password. 
-3. To clean your folder from the owner git, run the command `rm -rf .git`
-4. Run the command `git init` to start your git repository
-5. Go to the server folder in the project (`cd server`) and run the command `npm install`
-6. Inside your server folder, create an .env file with `touch .env`
-7. Inside your server folder, open the file `.env.example` and copy the file there. 
-8. Inside your .env file, paste the string from .env.example and change the variables with the values from the project. For this template, don't change the name of your db.
-9. Inside your server file: run the command `psql -U postgres -f db.sql` to restore the DB from the file db.sql
-10. Go to the cliente folder (`cd .. and cd client`) and run the command `npm start`
-11. Both server should run now with `npm start`
-12. Go to localhost:3000 and you should see something like this
-[!You will something like this in your terminal.](https://github.com/Yosolita1978/screenshoots/blob/main/template/Screen%20Shot%202022-03-20%20at%208.58.13%20PM.png?raw=true)
+<hr>
+<br>
+## Database Schema
+<img width="717" alt="DBSchema" src="https://user-images.githubusercontent.com/94813320/169442064-0f9da2ac-2d6f-459f-80f3-1521f20c45c1.png">
+
+<hr>
+<br>
+## Wireframes
+<img width="725" alt="PublicView" src="https://user-images.githubusercontent.com/94813320/169442136-2078e52e-583c-4a62-9aa2-98d187615011.png">
+<img width="724" alt="UserFlow" src="https://user-images.githubusercontent.com/94813320/169442148-150c30cc-fe26-4045-bac2-bc10eb19e31f.png">
+
+<hr>
+<br>
+## Getting Started Locally
+### Prerequisites
+**Docker**
+
+This project relies on Docker for to run the PostgreSQL server for registered users. To use those features, you must install Docker first before continuing.
+
+Windows:
+- Follow Microsoft's instructions to install [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and [Docker](https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers#install-docker-desktop).
+
+MacOS:
+- Use [Homebrew](https://docs.brew.sh/Installation): `brew install --cask docker`
+- [Follow the instructions on the Docker website](https://www.docker.com/)
+
+Launch Docker Desktop once it is installed. 
+
+**Node**
+
+You'll need to install Node v14 or above. [`nvm`](https://github.com/nvm-sh/nvm) is highly recommended.
+<hr>
+<br>
+### Installation
+
+1. Clone the repo:
+   ```sh
+   git clone https://github.com/asaudu/ForagingFoodie.git
+   ```
+2. Install all NPM packages using this in the root directory:
+   ```sh
+   npm install
+   ```
+3. Database setup:
+   1. Copy the root example environment file
+
+   ```sh
+   cp .env.example .env
+   ```
+   2. You can choose to edit `.env` or just use as-is.
+   3. Run the following to setup the database with the seed file:
+   ```sh
+   npm run db:init
+   ```
+
+Start the app and view it at <http://localhost:3000> by using:
+   ```sh
+   npm start
+   ```
+Shut Down the Express and React development servers using `Ctrl-C` .
+
+<hr>
+<br>
+#### Set Up React client for `auth0`
+If you want to try it with Auth0, the frontend needs to be setup with the following:
+
+1. Copy the app's example environment file
+
+   ```sh
+   cp app/.env.example app/.env
+   ```
+
+2. The `.env` file allows the React app to use Auth0, and requires an Auth0 domain + client-id.
+   - These can be obtained by signing up for an Auth0 account and [Registering a Single-Page Web Application](https://auth0.com/docs/get-started) in order to get these values.
+   - This [graphic](https://images.ctfassets.net/23aumh6u8s0i/1DyyZTcfbJHw577T6K2KZk/a8cabcec991c9ed33910a23836e53b76/auth0-application-settings) from [Auth0's guide](https://auth0.com/blog/complete-guide-to-react-user-authentication/#Connect-React-with-Auth0) may be helpful to locating them.
