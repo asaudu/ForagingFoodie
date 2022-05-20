@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 app.use(auth(config));
-
+app.use(express.static(REACT_BUILD_DIR));
 //trying the set up from S.O
 const yelp = require("yelp-fusion");
 const { response } = require("express");
@@ -66,7 +66,7 @@ app.get("/api/me", async (req, res) => {
   }
 });
 
-app.use(express.static(REACT_BUILD_DIR));
+
 
 app.get("/api/business/:alias", async (req, res) => {
   yelpResponse = await client.business(req.params.alias);
