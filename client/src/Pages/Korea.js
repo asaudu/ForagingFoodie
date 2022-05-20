@@ -19,9 +19,8 @@ const Korea = () => {
 	  switchDisplayView = (
 		<div>
 		  <IndividualPost post={selected} />
-		  <br />
-  
-		  <button onClick={() => setSelected(null)}>Go Back</button>
+		  
+		  <button style={{ borderRadius: "8px", boxShadow: "0 2px #ff66b3", color: "#ff66b3" }} onClick={() => setSelected(null)}>Go Back</button>
 		</div>
 	  );
 	} else {

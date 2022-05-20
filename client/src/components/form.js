@@ -233,7 +233,7 @@ const Form = (props) => {
           <input type="hidden" id="alias" required value={post.alias} />
           <input type="hidden" id="city" required value={post.city} />
           <br />
-          <button style={{ borderRadius: "8px" }} type="submit">{!post.id ? "Submit" : "Save"}</button>
+          <button style={{ borderRadius: "8px", boxShadow: "0 2px #ff66b3", color: "#ff66b3" }} type="submit">{!post.id ? "Submit" : "Save"}</button>
         </fieldset>
       </form>
 }

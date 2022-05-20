@@ -19,7 +19,7 @@ const ContactMe = () => {
     <div>
       <h1>Tryna Get in touch?</h1>
 
-      <div className="container">
+      <div className="contactContainer">
         <form action="/action_page.php" className="contactForm">
           <div classNam="row">
             <div classNam="col-25">
@@ -67,7 +67,7 @@ const ContactMe = () => {
           </div>
 
           <br />
-          <input type="submit" value="Submit" />
+          <input style={{ borderRadius: "8px", boxShadow: "0 2px #ff66b3", color: "#ff66b3" }} type="submit" value="Submit" />
           {/* <div class="row">
             
           </div> */}
