@@ -25,15 +25,15 @@ const Login = () => {
 
   return (
     <div>
-        <button className="login">
-            {!user ? (<li><a href="http://localhost:3001/login">Login</a></li>) : (<li>Hello, {user.nickname} <a href="http://localhost:3001/logout">Logout</a></li>)}
+        <button type="button" className="login" style={{borderRadius: "8px", boxShadow: "0 2px #ff66b3"}}>
+            {!user ? (<li><a style={{color: "#ff66b3"}} href="http://localhost:3001/login">Login</a></li>) : (<li>Hello, {user.nickname} <a href="http://localhost:3001/logout">Logout</a></li>)}
         </button>
     </div>
     // <nav>
     //   <ul>
     //     {!user ? (
     //       <li>
-    //         <button className="login"><a href="http://localhost:3001/login">LogIn</a></button>
+    //         <button type="button" name="login" className="login"><a href="http://localhost:3001/login">LogIn</a></button>
     //       </li>
     //     ) : (
     //       <li>

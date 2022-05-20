@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 //import IndividualPost from "./IndividualPost";
 //import EditForm from "./EditForm";
+import Form from "./Form";
 
 function DallasPostList(props) {
   const [posts, setPosts] = useState([]);
 
   //let selected = props;
 
-  const [editingPostId, setEditingPostId] = useState([]);
+  const [editingPostId, setEditingPostId] = useState(null);
   const [user, setUser] = useState(undefined);
 
   useEffect(() => {
-    fetch("/api/blogposts")
+    fetch("/api/blogposts/dallas")
       .then((response) => response.json())
       .then((posts) => {
         setPosts(posts);
@@ -48,21 +49,28 @@ function DallasPostList(props) {
     props.savePost(data);
   };
 
-  const updatePost = (savePost) => {
+  const updatePost = (updatedPost) => {
     setPosts((posts) => {
-      const newPost = [];
+      const newPostList = [];
       for (let post of posts) {
-        if (post.id === savePost.id) {
-          newPost.push(savePost);
+        if (post.id === updatedPost.id) {
+          newPostList.push(updatedPost);
         } else {
-          newPost.push(post);
+          newPostList.push(post);
         }
       }
-      return newPost;
+      return newPostList;
     });
     //this is meant to close the form
     setEditingPostId(null);
   };
+
+//a function to grab the post id of the student that we want to edit
+const onEdit = (post) => {
+  const editingId = post.id;
+  console.log(editingId);
+  setEditingPostId(editingId);
+};
 
   //logic for deleting an existing post by id
   const onDelete = async (id) => {
@@ -93,18 +101,29 @@ function DallasPostList(props) {
     props.passingSelected(post);
   };
 
+  const addPost = (newPost) => {
+    //console.log(newPost);
+    setPosts((posts) => [...posts, newPost]);
+  };
+
   //console.log(posts);
   return (
     <div>
-      {posts.map((post) => (
+      {posts.map((post) => {
+        if (post.id === editingPostId) {
+          console.log("dpList prop check", post);
+          return <Form header={"Editing Mode"} location={"Dallas, TX"} initialPost={post} addPost={addPost}/>;
+        } else {
+          return (
         <div key={post.id} className="cardPostList" style={{ width: "20rem" }}>
           <img
             className="card-img-top"
+            className="rounded-circle"
             src={post.imageurl}
             alt="Card image cap"
             style={{ width: "500px", height: "400px" }}
           />
-          <div className="card-body">
+          <div className="card-body" style={{backgroundColor: "#084b83", borderRadius: "8px"}}>
             <h5 className="card-title">{post.dish}</h5>
             <p
               className="card-text"
@@ -117,10 +136,8 @@ function DallasPostList(props) {
             >
               {post.content}
             </p>
-            {/* <a href="#" className="btn btn-primary">
-            Go somewhere
-          </a> */}
             <button
+            style={{ borderRadius: "8px", boxShadow: "0 2px #ff66b3", color: "#ff66b3" }}
               onClick={() => {
                 onClickHandler(post);
               }}
@@ -128,8 +145,13 @@ function DallasPostList(props) {
               View
             </button>
             {user && (
-              <li>
-                <button onClick={handleSubmit}>Edit</button>
+              <>
+                <button 
+                style={{ borderRadius: "8px" }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onEdit(post)
+                }}>Edit</button>
                 <button
                   type="button"
                   onClick={() => {
@@ -138,11 +160,13 @@ function DallasPostList(props) {
                 >
                   Delete
                 </button>
-              </li>
+                </>
             )}
           </div>
         </div>
-      ))}
+          )
+                }
+              })}
     </div>
   );
 }

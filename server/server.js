@@ -83,22 +83,14 @@ app.get("/api/business/:alias", async (req, res) => {
 //creates an endpoint for the route /api; this one is beautiful
 app.get("/api/location-search", cors(), async (req, res) => {
   term = req.query.term;
+  location = req.query.location;
   console.log("Line 48 check", term);
 
   yelpResponse = await client.search({
     term,
-    location: "Richardson, TX",
+    location,
   });
   res.send(yelpResponse.jsonBody);
-  /*
-search(term, locaction){
-    return this.send({
-      url: 'https://api.yelp.com/v3/businesses/search',
-      query: term, locaction
-      bearerToken: this.apiKey
-    });
-  }
-*/
 });
 
 //users get request
@@ -115,7 +107,35 @@ app.get("/api/users", cors(), async (req, res) => {
 //blogposts get request
 app.get("/api/blogposts", cors(), async (req, res) => {
   try {
-    const { rows: posts } = await db.query("SELECT * FROM blogposts");
+    const { rows: posts } = await db.query(
+      "SELECT * FROM blogposts WHERE NOT city='Korea'"
+    );
+    res.send(posts);
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({ e });
+  }
+});
+
+//get request for dallas posts
+app.get("/api/blogposts/dallas", cors(), async (req, res) => {
+  try {
+    const { rows: posts } = await db.query(
+      "SELECT * FROM blogposts WHERE NOT city='Korea'"
+    );
+    res.send(posts);
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({ e });
+  }
+});
+
+//get request for korea posts
+app.get("/api/blogposts/korea", cors(), async (req, res) => {
+  try {
+    const { rows: posts } = await db.query(
+      "SELECT * FROM blogposts WHERE city='Korea'"
+    );
     res.send(posts);
   } catch (e) {
     console.log(e);
@@ -145,6 +165,7 @@ app.post("/api/blogposts", cors(), async (req, res) => {
     content: req.body.content,
     date: req.body.date,
     alias: req.body.alias,
+    city: req.body.city,
   };
   console.log([newPost.dish, newPost.restaurant]);
 
@@ -154,7 +175,7 @@ app.post("/api/blogposts", cors(), async (req, res) => {
   console.log(userIdLookup.rows[0]);
 
   const result = await db.query(
-    "INSERT INTO blogposts(imageurl, alt, dish, restaurant, content, date, user_id, alias) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+    "INSERT INTO blogposts(imageurl, alt, dish, restaurant, content, date, user_id, alias, city) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
 
     [
       newPost.imageurl,
@@ -165,6 +186,7 @@ app.post("/api/blogposts", cors(), async (req, res) => {
       newPost.date,
       userIdLookup.rows[0].id,
       newPost.alias,
+      newPost.city,
     ]
   );
   console.log(result.rows[0]);
@@ -192,12 +214,12 @@ app.delete("/api/blogposts/:postId", cors(), async (req, res) => {
 // blogposts Put request - Update request
 app.put("/api/blogposts/:postId", cors(), async (req, res) => {
   const postId = req.params.postId;
-  const updatePost = req.body.updatePost;
+  const updatePost = req.body;
   //console.log(req.params);
   // UPDATE students SET lastname = 'TestMarch' WHERE id = 1;
-  console.log(postId);
-  console.log(updatePost);
-  const query = `UPDATE blogposts SET imageurl=$1, alt=$2, dish=$3, restaurant=$4, content=$5, date=$6, alias=$7 WHERE id = ${postId} RETURNING *`;
+  console.log("updated post id", postId);
+  console.log("updated post content", updatePost);
+  const query = `UPDATE blogposts SET imageurl=$1, alt=$2, dish=$3, restaurant=$4, content=$5, date=$6, alias=$7, city=$8 WHERE id = ${postId} RETURNING *`;
   console.log(query);
 
   const values = [
@@ -208,6 +230,7 @@ app.put("/api/blogposts/:postId", cors(), async (req, res) => {
     updatePost.content,
     updatePost.date,
     updatePost.alias,
+    updatePost.city,
   ];
   try {
     const updated = await db.query(query, values);
