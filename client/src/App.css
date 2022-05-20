@@ -21,6 +21,10 @@ body {
   border-spacing: 5px 1px;
   border: 2px solid black;
 }
+h2 {
+ tetxt-align: center;
+ margin: auto;
+}
 
 div.beginning {
   margin: 35px;
