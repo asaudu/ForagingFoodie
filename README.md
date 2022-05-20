@@ -2,23 +2,13 @@
 ![1](https://user-images.githubusercontent.com/94813320/169441504-d4b7c8c9-be21-41dd-a257-7c31b3e116f8.png)
 <hr>
 <br>
-Contents
 
-  - [Overview](#overview)
-  - [Technology](#technology)
-  - [Userflow](#userflow)
-  - [Database Schema](#database-schema)
-  - [Wireframes](#wireframes)
-  - [Getting Started Locally](#getting-started-locally)
-  - [Installation](#installation)
-<hr>
-<br> 
-Overview
+# Overview
 This is a blog where I share my experiences at different restaurants that helped me re-discover Dallas. I also wanted to use this as practice to fully implement CRUD.
 There is a view for the general public, and a slightly different view for those who login, which allows them to see a blog post form, an edit button, and a delete button.
 <hr>
 <br>
-## Technology
+# Technology
 the Foraging Foodie was built with:
 - HTML
 - CSS
@@ -33,17 +23,17 @@ the Foraging Foodie was built with:
 - [Heroku](https://heroku.com)
 <hr>
 <br>
-## User Flow
+# User Flow
 <img width="724" alt="UserFlow" src="https://user-images.githubusercontent.com/94813320/169442015-95393be1-a26d-41e4-a4fe-61a12b75d755.png">
 
 <hr>
 <br>
-## Database Schema
+# Database Schema
 <img width="717" alt="DBSchema" src="https://user-images.githubusercontent.com/94813320/169442064-0f9da2ac-2d6f-459f-80f3-1521f20c45c1.png">
 
 <hr>
 <br>
-## Wireframes
+# Wireframes
 <img width="725" alt="PublicView" src="https://user-images.githubusercontent.com/94813320/169442136-2078e52e-583c-4a62-9aa2-98d187615011.png">
 <img width="724" alt="UserFlow" src="https://user-images.githubusercontent.com/94813320/169442148-150c30cc-fe26-4045-bac2-bc10eb19e31f.png">
 
@@ -69,7 +59,7 @@ Launch Docker Desktop once it is installed.
 You'll need to install Node v14 or above. [`nvm`](https://github.com/nvm-sh/nvm) is highly recommended.
 <hr>
 <br>
-### Installation
+# Installation
 
 1. Clone the repo:
    ```sh
@@ -99,7 +89,7 @@ Shut Down the Express and React development servers using `Ctrl-C` .
 
 <hr>
 <br>
-#### Set Up React client for `auth0`
+# Set Up React client for `auth0`
 If you want to try it with Auth0, the frontend needs to be setup with the following:
 
 1. Copy the app's example environment file
