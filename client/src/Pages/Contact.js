@@ -21,6 +21,7 @@ const ContactMe = () => {
 
       <div className="contactContainer">
         <form action="/action_page.php" className="contactForm">
+          <h1>Contact Me</h1>
           <div classNam="row">
             <div classNam="col-25">
               <label for="uname">Username</label>
@@ -67,7 +68,15 @@ const ContactMe = () => {
           </div>
 
           <br />
-          <input style={{ borderRadius: "8px", boxShadow: "0 2px #ff66b3", color: "#ff66b3" }} type="submit" value="Submit" />
+          <input
+            style={{
+              borderRadius: "8px",
+              boxShadow: "0 2px #ff66b3",
+              color: "#ff66b3",
+            }}
+            type="submit"
+            value="Submit"
+          />
           {/* <div class="row">
             
           </div> */}
