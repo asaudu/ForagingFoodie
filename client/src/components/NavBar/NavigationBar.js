@@ -7,7 +7,7 @@ import {
   NavBtnLink,
 } from "./NavBarElements";
 import Login from "../Login";
-import bigBunny from "./bigBunny.png";
+import bigbunny from "./bigbunny.png";
 
 const Navbar = () => {
   return (
@@ -15,7 +15,7 @@ const Navbar = () => {
       <Nav>
         <Bars />
         <NavMenu>
-        <NavLink to="/"> <div> <img className="bunnyLogo" src={bigBunny} alt="" style={{ width: "15rem", height: "15rem", marginTop: "2rem", alignItems: "left", marginRight: "" }}/> </div> </NavLink>
+        <NavLink to="/"> <div> <img className="bunnyLogo" src={bigbunny} alt="" style={{ width: "15rem", height: "15rem", marginTop: "2rem", alignItems: "left", marginRight: "" }}/> </div> </NavLink>
           <NavLink to="/" className="navWords">Home</NavLink>
           <NavLink to="/dallas" className="navWords">Dallas</NavLink>
           <NavLink to="/korea" className="navWords">Korea</NavLink>
