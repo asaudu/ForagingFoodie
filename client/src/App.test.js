@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
-import Form from './components/Form';
+import Form from './components/form';
 import DallasPostList from './components/DallasPostList';
 //import Dallas from '/Pages/Dallas';
 import Login from './components/Login';

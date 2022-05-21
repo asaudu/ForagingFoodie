@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 //import IndividualPost from "./IndividualPost";
-import Form from "./Form";
+import Form from "./form";
 
 function KoreaPostList(props) {
   const [posts, setPosts] = useState([]);

@@ -1,5 +1,5 @@
 import IndividualPost from "../components/IndividualPost";
-import Form from "../components/Form";
+import Form from "../components/form";
 import KoreaPostList from "../components/KoreaPostList";
 import { useState } from "react";
 
