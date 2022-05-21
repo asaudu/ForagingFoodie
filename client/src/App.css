@@ -52,9 +52,10 @@ div.middle {
 }
 
 .blogForm {
+  color: #084b83;
   margin: 25px;
-  background-color: #bbe6e4;
-  border: 2px solid black;
+  background-color: #42bfdd;
+  border: 5px solid #f0f6f6;
   border-radius: 10px;
   opacity: 0.75;
 }
