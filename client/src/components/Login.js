@@ -29,20 +29,6 @@ const Login = () => {
             {!user ? (<li><a style={{color: "#ff66b3"}} href="http://localhost:3001/login">Login</a></li>) : (<li>Hello, {user.nickname} <a href="http://localhost:3001/logout">Logout</a></li>)}
         </button>
     </div>
-    // <nav>
-    //   <ul>
-    //     {!user ? (
-    //       <li>
-    //         <button type="button" name="login" className="login"><a href="http://localhost:3001/login">LogIn</a></button>
-    //       </li>
-    //     ) : (
-    //       <li>
-    //         Hello, {user.nickname}
-    //         <button className="log-button"><a href="http://localhost:3001/logout">LogOut</a></button>
-    //       </li>
-    //     )}
-    //   </ul>
-    // </nav>
   );
 };
 

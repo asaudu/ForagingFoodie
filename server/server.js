@@ -28,15 +28,6 @@ const yelp = require("yelp-fusion");
 const { response } = require("express");
 const apiKey = process.env.API_KEY;
 const client = yelp.client(apiKey);
-// const searchRequest = {
-//     term: 'restaurants',
-//     location: 'Dallas'
-// };
-
-// const searchRequest = {
-//     term: 'restaurants',
-//     location: 'Gunsan'
-// };
 
 //creates an endpoint for the route /api;
 app.get("/", (req, res) => {

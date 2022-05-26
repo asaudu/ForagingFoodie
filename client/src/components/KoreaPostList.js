@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-//import IndividualPost from "./IndividualPost";
 import Form from "./form";
 
 function KoreaPostList(props) {
   const [posts, setPosts] = useState([]);
-
-  //let selected = props;
 
   const [editingPostId, setEditingPostId] = useState(null);
   const [user, setUser] = useState(undefined);
@@ -102,11 +99,9 @@ function KoreaPostList(props) {
 
   const addPost = (newPost) => {
     //console.log(newPost);
-    //postStudent(newPost);
     setPosts((posts) => [...posts, newPost]);
   };
 
-  //console.log(posts);
   return (
     <div>
       {posts.map((post) => {

@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-//import IndividualPost from "./IndividualPost";
-//import EditForm from "./EditForm";
 import Form from "./form";
 
 function DallasPostList(props) {

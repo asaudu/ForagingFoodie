@@ -11,12 +11,10 @@ const Home = () => {
       });
   }, []);
 
-  //getting 1 profuct to render on the page
+  //getting 1 product to render on the page
   posts.splice(1, 4);
 
-  //Math.floor(Math.random(posts) * 4)
-
-  //console.log("homepage post check", posts)
+  
   return (
     <div>
       <h1 className="homePageTitle">Welcome to the Foraging Foodie</h1>

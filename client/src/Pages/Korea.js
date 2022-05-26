@@ -5,7 +5,6 @@ import { useState } from "react";
 
 const Korea = () => {
 	const [selected, setSelected] = useState(null);
-	//const [posts, setPosts] = useState([]);
   
 	function passingSelected(post) {
 	  //console.log('hello')

@@ -77,9 +77,6 @@ const ContactMe = () => {
             type="submit"
             value="Submit"
           />
-          {/* <div class="row">
-            
-          </div> */}
         </form>
       </div>
     </div>

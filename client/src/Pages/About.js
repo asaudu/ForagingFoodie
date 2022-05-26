@@ -15,11 +15,6 @@ After graduating from college and getting a job in my field, I realized my idea 
 		</div>
 	
 	</div>
-	{/* <div className="end">
-		<p>
-
-		</p>
-	</div> */}
 	
 	</div>
 );

@@ -1,6 +1,6 @@
 import { useState } from "react";
 const SignUp = (props) => {
-  // Initial student in case that you want to update a new student
+  // Initial user in case that you want to update a new user
   const { initialPost = { id: null, nickname: "", email: "" } } = props;
 
   // We're using that initial student as our initial state
